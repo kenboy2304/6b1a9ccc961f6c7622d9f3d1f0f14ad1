@@ -12,6 +12,6 @@ namespace CDNVN.ParallaxPage.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string Title { get; set; }
-        public virtual List<Slide> Slides { get; set; }
+        public string JsonSlide { get; set; }
     }
 }

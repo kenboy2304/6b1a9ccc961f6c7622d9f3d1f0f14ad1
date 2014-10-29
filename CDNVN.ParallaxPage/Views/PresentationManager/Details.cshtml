@@ -1,0 +1,149 @@
+﻿@using Newtonsoft.Json
+@model CDNVN.ParallaxPage.Models.Presentation
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "../Shared/_LayoutPreview.cshtml";
+    dynamic slides = JsonConvert.DeserializeObject(HttpUtility.UrlDecode(Model.JsonSlide));
+}
+@foreach (var slide in slides)
+{
+    <div class="slide" id="@slide["id"]" style="@slide["style"]">
+        <div class="slide-container">
+            @{ var layers = slide["layers"]; }
+            @foreach (var layer in layers)
+            {
+
+                <div class="layer" id="@layer["id"]" style="@layer["style"]">
+                    <div class="layer-container" style="width: 100%;height: 100%">
+                        @Html.Raw(layer["content"])
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+@section scripts
+{
+    <script type="text/javascript">
+        var controller;
+
+        function ParallaxAnimation(triggerElement, animationElement, duration, offset, triggerHook, animation) {
+
+            //ANIMATION IN
+            //fly in left
+            var tween;
+            ease = Linear.easeNone;
+            switch (animation) {
+                //FLY IN
+                case "flyinleft":
+                    {
+                        tween = TweenMax.from(animationElement, 1, { left: 0 - $(animationElement).width(), "opacity": 0, ease: ease });
+                        break;
+                    }
+                case "flyinright":
+                    {
+                        tween = TweenMax.from(animationElement, 1, { left: $(triggerElement).width() + $(animationElement).width(), "opacity": 0, ease: ease });
+                        break;
+                    }
+                case "flyintop":
+                    {
+                        tween = TweenMax.from(animationElement, 1, { top: 0 - $(animationElement).height(), "opacity": 0, ease: ease });
+                        break;
+                    }
+                case "flyinbottom":
+                    {
+                        tween = TweenMax.from(animationElement, 1, { top: $(triggerElement).height() + $(animationElement).height(), "opacity": 0, ease: ease });
+                        break;
+                    }
+                    //FLOAT IN
+                case "floatinleft":
+                    {
+                        tween = TweenMax.from(animationElement, 1, { left: $(animationElement).offset().left - 50, "opacity": 0, ease: ease });
+                        break;
+                    }
+                case "floatinright":
+                    {
+                        tween = TweenMax.from(animationElement, 1, { left: $(animationElement).offset().left + 50 + $(animationElement).width(), "opacity": 0, ease: ease });
+                        break;
+                    }
+                case "floatintop":
+                    {
+                        var top = $(animationElement).offset().top - $(triggerElement).offset().top;
+                        tween = TweenMax.from(animationElement, 1, { top: top - 50, "opacity": 0, ease: ease });
+                        break;
+                    }
+                case "floatinbottom":
+                    {
+                        var top = $(animationElement).offset().top - $(triggerElement).offset().top;
+                        tween = TweenMax.from(animationElement, 1, { top: top + 50, "opacity": 0, ease: ease });
+                        break;
+                    }
+                case "fadein":
+                    {
+                        tween = TweenMax.from(animationElement, 1, { "opacity": 0, ease: ease });
+                        break;
+                    }
+                case "zoomin":
+                    {
+                        tween = TweenMax.from(animationElement, 1, { scale: 0, "opacity": 0, ease: ease });
+                        break;
+                    }
+                    //emphasis
+                case "rotationempasis":
+                    {
+                        tween = TweenMax.from(animationElement, 1, { rotation: 360, repeat: -1, ease: ease });
+                        break;
+                    }
+                case "teeterempasis":
+                    {
+                        TweenMax.set(animationElement, { rotation: 5 });
+                        tween = TweenMax.from(animationElement, 1, { rotation: -5, repeat: -1, yoyo: true });
+                        break;
+                    }
+                    //out
+                case "zoomout":
+                    {
+                        tween = TweenMax.to(animationElement, 1, { scale: 0, "opacity": 0, ease: ease });
+                        break;
+                    }
+                default:
+            }
+
+            //ANIMATION OUT
+            return new ScrollScene({ triggerElement: triggerElement, duration: duration, offset: offset })
+                             .setTween(tween)
+                             .triggerHook(triggerHook)
+                             .addTo(controller);
+        }
+
+        $(function () {
+            var viewportHeight = $(window).height();
+            $('.slide').height(viewportHeight);
+
+            controller = new ScrollMagic();
+            var scene;
+            scene = ParallaxAnimation("#slide1", "#layer1", $(window).height() / 2, 0, "onCenter", "floatintop");
+            scene = ParallaxAnimation("#slide1", "#layer2", $(window).height() / 2, 0, "onCenter", "floatinbottom");
+
+            scene = ParallaxAnimation("#slide2", "#layer3", $(window).height() / 2, 0, "onCenter", "zoomin");
+            scene = ParallaxAnimation("#slide2", "#layer3", $(window).height(), 0, "onCenter", "teeterempasis");
+            scene = ParallaxAnimation("#slide2", "#layer3", $(window).height() / 2, 0, "onLeave", "zoomout");
+
+            scene = ParallaxAnimation("#slide3", "#layer5", $(window).height() / 2, 0, "onCenter", "floatintop");
+            scene = ParallaxAnimation("#slide3", "#layer4", $(window).height() / 2, 0, "onCenter", "floatinbottom");
+
+            scene = new ScrollScene({ triggerElement: "#slide1", duration: 300 })
+                .setPin("#layer1 .layer-container")
+                .triggerHook("onLeave")
+			    .addTo(controller);
+        });
+
+        $(function () {
+            $('.slide').on("click", function () {
+                //$(window).scrollTop($(this).next().offset().top, "slow");
+                $('body').animate({ scrollTop: $(this).next().offset().top }, 3000);
+            });
+        });
+    </script>
+}

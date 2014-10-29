@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Previews</title>
+    <link rel="stylesheet" href="http://www.gayadesign.com/scripts/queryLoader/css/queryLoader.css" type="text/css" />
+
+    @Styles.Render("~/Content/csspreview")
+    @Styles.Render("~/Content/jqueryui")
+    @Scripts.Render("~/bundles/modernizr")
+    @RenderSection("styles", required: false)
+    <script type="text/javascript" src="http://janpaepke.github.io/ScrollMagic/js/_dependent/greensock/TweenMax.min.js"></script>
+    <script type="text/javascript" src="http://janpaepke.github.io/ScrollMagic/js/_dependent/greensock/plugins/ScrollToPlugin.min.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript" src="http://janpaepke.github.io/ScrollMagic/js/_mobile/iscroll-probe.js"></script>
+    <script type="text/javascript" src="http://janpaepke.github.io/ScrollMagic/js/jquery.scrollmagic.min.js"></script>
+    <script type="text/javascript" src="http://www.gayadesign.com/scripts/queryLoader/js/queryLoader.js"></script>
+    
+</head>
+    <body>
+        <div class="container">
+            @RenderBody()
+        </div>
+        @Scripts.Render("~/bundles/jqueryui")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    
+    </body>
+</html>
+

@@ -1,31 +1,74 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿<div id="slide-container">
+
+</div>
+<div></div>
+
+
+@section styles
+{
+
+    <link href="@Url.Content("~/Content/ParallaxCSS.css")" rel="stylesheet" />
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-</div>
+@section scripts
+{
+    <script type="text/javascript">
+        var pId = '@(Url.RequestContext.RouteData.Values["id"] ?? Request.QueryString["id"])';
+        var pUrl = '@Url.Action("JsonEdit", "PresentationManager")';
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+    </script>
+    <script src="@Url.Content("~/Content/Plugins/Colpick/js/colpick.js")"></script>
+    <script src="@Url.Content("~/Scripts/parllaxJS.js")"></script>
+
+    <script type="text/javascript">
+
+        var slides = '@ViewBag.DataJson';
+        fnOpen(slides);
+
+
+        //function Init()
+        $(".sortable").sortable({
+            start: function (event, ui) {
+                ui.item.startPos = ui.item.index();
+            },
+            stop: function (event, ui) {
+                var startPos = ui.item.startPos;
+                var endPos = ui.item.index();
+                if (startPos != endPos) {
+                    var pWrapper = "#slide-container";
+                    var pItem = ".slide";
+                    if (ui.item.find('[data-layer]').length > 0) {
+                        pWrapper = objPSlide.ActiveId();
+                        pItem = ".layer";
+                    }
+                    var startLayer = $(elementID(pWrapper) + ' ' + pItem).eq(startPos).attr("id");
+                    var endLayer = $(elementID(pWrapper) + ' ' + pItem).eq(endPos).attr("id");
+                    if (startPos > endPos)
+                        $(elementID(startLayer)).insertBefore(elementID(endLayer));
+                    else
+                        $(elementID(startLayer)).insertAfter(elementID(endLayer));
+
+                    //if item is layer change z-index layer
+                    if (ui.item.find('[data-layer]').length > 0)
+                        fnLayerSetIndex();
+                }
+            }
+        }).disableSelection();
+
+        ////JQUERY ACTION
+        //var controller;
+        //$(document).ready(function ($) {
+        //    // init controller
+        //    controller = new ScrollMagic();
+        //    $(document).ready(function () {
+        //        // build scene
+        //        var scene = new ScrollScene({ triggerElement: "#slide2", duration: 300 })
+        //            .setTween(TweenMax.fromTo("#layer2", 1, { "top": "-340px", rotation: 360 }, { "top": "100px", rotation: 0 }))
+        //    //.setPin("#layer2")
+        //    .addTo(controller);
+        //    });
+
+        //});
+
+    </script>
+}

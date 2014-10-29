@@ -10,7 +10,8 @@ namespace CDNVN.ParallaxPage
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
-
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+                        "~/Scripts/jquery-ui-{version}.js"));
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
@@ -26,6 +27,11 @@ namespace CDNVN.ParallaxPage
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/csspreview").Include(
+                      "~/Content/bootstrap.css",
+                      "~/Content/preview.css"));
+            bundles.Add(new ScriptBundle("~/Content/jqueryui").Include(
+            "~/Content/jquery-ui.css"));
         }
     }
 }

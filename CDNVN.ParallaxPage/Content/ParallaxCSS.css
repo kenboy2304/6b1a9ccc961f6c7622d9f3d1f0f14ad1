@@ -1,0 +1,199 @@
+﻿body {
+    background: #F9F9FB;
+}
+
+ol, ul, li {
+    list-style: none;
+}
+
+.manager-color-header {
+    background: #CCCEDB;
+}
+
+.manager-color-content {
+    background: #EEEEF2;
+}
+
+#tabs {
+    width: 230px;
+    border-radius: initial;
+    padding: 0;
+    font-size: 11px;
+    position: fixed;
+    top: 60px;
+    right: 25px;
+    border-color: #CCCEDB;
+    z-index: 1000;
+}
+
+    #tabs .ui-tabs-nav {
+        border-radius: initial;
+        border: none;
+        color: #cccedb;
+        padding: 0;
+    }
+
+    #tabs .ui-state-default {
+        background: #404040;
+        color: #fff;
+        border: none;
+        border-radius: initial;
+    }
+
+        #tabs .ui-state-default a {
+            padding: 5px 7px;
+            color: white;
+        }
+
+    #tabs .ui-tabs-active {
+        background: #EEEEF2;
+    }
+
+        #tabs .ui-tabs-active a {
+            color: #404040;
+        }
+
+    #tabs .ui-wrapper-tabs {
+        box-sizing: border-box;
+        border: 5px #eeeef2 solid;
+        padding: 0;
+    }
+
+    #tabs .ui-sortable {
+        padding: 0;
+    }
+
+    #tabs .sortable .sortable-item {
+        padding: 5px;
+        border: 1px #CCCEDB solid;
+        margin-top: -1px;
+    }
+
+        #tabs .sortable .sortable-item a {
+            width: 190px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: block;
+        }
+
+            #tabs .sortable .sortable-item a:hover {
+                text-decoration: none;
+            }
+
+            #tabs .sortable .sortable-item a:before {
+                font-family: 'Glyphicons Halflings';
+                content: "\e072";
+                font-size: 10px;
+                padding-right: 5px;
+            }
+
+    #tabs .sortable .active {
+        background: #cccedb;
+    }
+
+.tools {
+    border: 1px #CCCEDB solid;
+    width: 60px;
+    position: fixed;
+    top: 60px;
+    left: 25px;
+    z-index: 99999;
+}
+
+    .tools dt, .tools dd {
+        float: left;
+        width: 100%;
+        background: #EEEEF2;
+    }
+
+    .tools dt {
+        font-weight: 300;
+        font-size: 12px;
+        background: #CCCEDB;
+        border: 3px #cccedb solid;
+        box-sizing: border-box;
+        width: 100%;
+        
+        font-weight: 700;
+        position: relative;
+    }
+    .tools dt:first-child,.ui-tabs-nav {
+        cursor: move;
+    }
+    .tools dt span {
+        color: #333;
+        font-size: 7px;
+        position: absolute;
+        font-weight: 500;
+        right: 0;
+        top: 5px;
+        cursor: default;
+    }
+
+    .tools dd {
+        padding: 5px;
+    }
+
+        .tools dd ul {
+            margin: 0;
+            padding: 0;
+        }
+
+        .tools dd a {
+            float: left;
+            width: 50px;
+            text-align: center;
+            color: #0a0a0a;
+        }
+
+            .tools dd a.dash {
+                border-top: #CCCEDB 1px solid;
+                width: 60px;
+                margin-left: -6px !important;
+            }
+#slide-container.hide-name .layer-name {
+    display: none !important;
+}
+.slide {
+    opacity: 0.5;
+    width: 100%;
+    height: 600px;
+    position: relative;
+    border: #CCCEDB 1px dotted;
+}
+
+    .slide.active {
+        background: white;
+        opacity: 1;
+    }
+
+
+.layer {
+    border: 1px #7f7f7f dashed;
+    display: inline-block;
+    position: absolute;
+}
+
+    .layer .layer-name {
+        position: absolute;
+        right: -1px;
+        top: -22px;
+        padding: 0 5px;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        background: #CCCEDB;
+    }
+
+.slide .active {
+    border: 1px #939393 solid;
+    box-shadow: #939393 0px 0px 2px;
+}
+
+.layer.active > .layer-name {
+    background: #0a0a0a;
+    color: white;
+}

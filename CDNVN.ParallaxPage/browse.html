@@ -1,0 +1,17 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+    <body>
+        <input type="text" id="ImageUrl" name="ImageUrl"/>
+        <input id="btnClose" type="button" value="return" onclick="CloseDialog();" />
+        <script type="text/javascript">
+            function CloseDialog() {
+                window.opener.setValue("Thanh cong");
+                window.close();
+            }
+        </script>
+    </body>
+
+</html>

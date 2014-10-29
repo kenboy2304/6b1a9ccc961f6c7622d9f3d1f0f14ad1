@@ -1,0 +1,551 @@
+﻿@{
+    Layout = null;
+}
+
+@{
+    Layout = null;
+    var type = Request.QueryString["type"];
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>SLide Editor</title>
+    @Styles.Render("~/Content/jqueryui")
+    <link href="@Url.Content("~/Content/Plugins/Colpick/css/colpick.css")" rel="stylesheet" />
+    <style>
+        body {
+            font-size: 14px;
+            overflow: hidden;
+        }
+
+        h1, h2, h3 {
+            margin: 0;
+        }
+
+        .color-box {
+            float: left;
+            width: 30px;
+            height: 30px;
+            border: 2px solid dimgrey;
+            background: red;
+        }
+        [name$='color'] {
+            width: 30px;
+            border: 2px solid dimgrey;
+            text-indent: -999999px;
+        }
+        .group {
+            width: 100%;
+            float: left;
+            margin: 5px 0;
+        }
+
+            .group .group-item {
+                float: left;
+                height: 30px;
+                padding: 0;
+                margin: 0 5px;
+            }
+
+                .group .group-item:not(div) {
+                    line-height: 30px;
+                }
+
+            .group div.group-item {
+                min-width: 150px;
+            }
+
+        .ui-accordion .ui-accordion-content {
+            padding: 1em !important;
+        }
+
+        #bdStyle {
+            display: none;
+        }
+
+            #bdStyle option {
+                border: 1px #ff0000 solid;
+            }
+
+        .border-style .result, .border-style .option {
+            border: 1px solid gray;
+            position: relative;
+            width: 100%;
+            text-indent: -99999px;
+        }
+
+        .border-style .result {
+            padding: 5px;
+        }
+
+        .border-style .option p {
+            position: relative;
+            width: 100%;
+            margin: 0;
+            display: block;
+        }
+
+        .option {
+            position: absolute;
+            top: -1px;
+            padding: 0 5px;
+            display: none;
+            max-height: 200px;
+            overflow: auto;
+            background: white;
+        }
+
+            .option ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                width: 100%;
+            }
+
+            .option li {
+                width: 100%;
+                padding: 5px;
+                margin-left: -5px;
+                cursor: pointer;
+                height: 24px;
+                line-height: 24px;
+                position: relative;
+                text-indent: -999999px;
+            }
+
+                .option li span, .result span {
+                    width: 90%;
+                    height: 50%;
+                    border-bottom-style: solid;
+                    display: block;
+                    position: absolute;
+                    top: 0;
+                    left: 5%;
+                }
+
+                .option li:hover {
+                    background: grey !important;
+                }
+    </style>
+</head>
+<body>
+    <div id="properties-tabs" class="manager-color-content">
+        <ul>
+            <li><a href="#properties-background">Background</a></li>
+            <li><a href="#properties-border">Border</a></li>
+        </ul>
+        <div class="ui-wrapper-tabs manager-color-content" id="properties-background">
+            <div id="accordion">
+                <h3>Background Color</h3>
+                <div class="item">
+                    <div class="group">
+                        <span class="group-item">Color:</span>
+                        <input class="group-item" id="bgColor" name="background-color" class="background-color" type="text" width="20" style="" />
+
+                    </div>
+                    <div class="group">
+                        <span class="group-item">Alpha: </span>
+                        <input class="group-item" id="slider1" name="background-color-alpha" type="range" min="0" max="1" step="0.1" value="1" onchange="printValue('#slider1', '#bgAlpha')" />
+                        <input class="group-item" id="bgAlpha" type="text" value="1" style="width: 30px; text-align: center" disabled />
+                    </div>
+                    <div class="group">
+                        <span class="group-item">Padding: </span>
+                        <input class="group-item" id="bgColor" name="padding" class="padding" type="text" width="20" style="" />
+                        <span class="group-item">px</span>
+                    </div>
+                </div>
+                <h3>Background Image</h3>
+                <div class="item">
+                    <div class="group">
+                        <span class="group-item">Image Url: #</span>
+                        <input id="bgImage" width="20" name="background-image" class="group-item" />
+
+                    </div>
+                    <div class="group">
+                        <span class="group-item">Repeat: </span>
+                        <select class="group-item" id="bgRepeat" name="background-repeat">
+                            <option selected="selected" value="no-repeat">
+                                no-repeat
+                            </option>
+                            <option value="repeat-x">
+                                repeat-x
+                            </option>
+                            <option value="repeat-y">
+                                repeat-y
+                            </option>
+                            <option value="repeat">
+                                repeat
+                            </option>
+                        </select>
+                    </div>
+                    <div class="group">
+                        <span class="group-item">Position: </span>
+                        <select class="group-item" id="bgPosition" name="background-position">
+                            <option selected="selected" value="0% 0%">
+                                left top
+                            </option>
+                            <option value="0% 50%">
+                                left center
+                            </option>
+                            <option value="0% 100%">
+                                left bottom
+                            </option>
+                            <option value="50% 0%">
+                                center top
+                            </option>
+                            <option value="50% 50%">
+                                center center
+                            </option>
+                            <option value="50% 100%">
+                                center bottom
+                            </option>
+                            <option value="100% 0%">
+                                right top
+                            </option>
+                            <option value="100% 50%">
+                                right center
+                            </option>
+                            <option value="100% 100%">
+                                right bottom
+                            </option>
+                        </select>
+                        <span class="group-item">X:</span>
+                        <input class="group-item" id="bgPosX" type="text" width="20" name="background-position-x" style="width: 50px" value="" />
+                        <span class="group-item">Y:</span>
+                        <input class="group-item" id="bgPosY" type="text" width="20" name="background-position-y" style="width: 50px" value="" />
+                    </div>
+                    <div class="group">
+                        <span class="group-item">Size: </span>
+                        <select class="group-item" id="bgSize" name="background-size">
+                            <option selected="selected" value="initial">
+                                initial
+                            </option>
+                            <option value="contain">
+                                contain
+                            </option>
+                            <option value="cover">
+                                cover
+                            </option>
+                            <option value="100% 100%">
+                                fixed
+                            </option>
+                            <option value="custom">
+                                custom
+                            </option>
+                        </select>
+                        <span class="bgSize-custom group-item">W:</span>
+                        <input class="bgSize-custom group-item" id="bgSizeW" type="text" width="20" style="width: 50px" value="" />
+                        <span class="bgSize-custom group-item">H:</span>
+                        <input class="bgSize-custom group-item" id="bgSizeH" type="text" width="20" style="width: 50px" value="" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui-wrapper-tabs manager-color-content" id="properties-border">
+            <div class="group">
+                <span class="group-item">Color:</span>
+                <input class="group-item" id="bdColor" type="text" width="20" name="border-color" />
+            </div>
+            <div class="group">
+                <span class="group-item">Alpha: </span>
+                <input class="group-item" id="slider2" name="border-color-alpha" type="range" min="0" max="1" step="0.1" value="1" onchange="printValue('#slider2', '#bdAlpha')" />
+                <input class="group-item" id="bdAlpha" type="text" value="1" style="width: 30px; text-align: center" disabled />
+            </div>
+            <div class="group">
+                <span class="group-item">Style: </span>
+                <div class="group-item">
+                    <select id="bdStyle" name="border-style">
+                        <option value="none">No border.</option>
+                        <option value="dotted">&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;&middot;</option>
+                        <option value="dashed">&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;&ndash;</option>
+                        <option value="solid">&#95;&#95;&#95;&#95;&#95;&#95;&#95;&#95;&#95;</option>
+                        <option value="double"><text>okie</text></option>
+                        <option value="groove">A groove border.</option>
+                        <option value="ridge">A ridge border.</option>
+                        <option value="inset">An inset border.</option>
+                        <option value="outset">An outset border.</option>
+                        <option value="hidden">A hidden border.</option>
+                    </select>
+                    <div class="border-style">
+                        <div class="result" data-value="none">No border.<span></span></div>
+                        <div class="option">
+                            <ul>
+                                <li class="none" data-value="none">No border.<span></span></li>
+                                <li class="dotted" data-value="dotted">A dotted border.<span></span></li>
+                                <li class="dashed" data-value="dashed">A dashed border.<span></span></li>
+                                <li class="solid" data-value="solid">A solid border.<span></span></li>
+                                <li class="double" data-value="double">A double border.<span></span></li>
+                                <li class="groove" data-value="groove">A groove border.<span></span></li>
+                                <li class="ridge" data-value="ridge">A ridge border.<span></span></li>
+                                <li class="inset" data-value="inset">An inset border.<span></span></li>
+                                <li class="outset" data-value="outset">An outset border.<span></span></li>
+                                <li class="hidden" data-value="hidden">A hidden border.<span></span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="group">
+                <span class="group-item">Width:</span>
+                <input class="group-item" id="bdSize" min="0" type="number" name="border-width" style="width: 50px; text-align: center" value="1" />
+                <span class="group-item">px</span>
+            </div>
+            <div class="group">
+                <span class="group-item">Radius:</span>
+            </div>
+            <div class="group">
+                <input class="group-item" id="bdRadius" min="0" type="number" name="border-top-left-radius" style="width: 50px; text-align: center" value="0" />
+                <span class="group-item">px</span>
+                <input class="group-item" id="bdRadius" min="0" type="number" name="border-top-right-radius" style="width: 50px; text-align: center" value="0" />
+                <span class="group-item">px</span>
+            </div>
+            <div class="group">
+                <input class="group-item" id="bdRadius" min="0" type="number" name="border-bottom-left-radius" style="width: 50px; text-align: center" value="0" />
+                <span class="group-item">px</span>
+                <input class="group-item" id="bdRadius" min="0" type="number" name="border-bottom-right-radius" style="width: 50px; text-align: center" value="0" />
+                <span class="group-item">px</span>
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+
+    <p style="text-align: right">
+        <button type="button" onclick="btnAccept()">Accept</button>
+        <button type="button" onclick="btnOk()">Ok</button>
+        <button type="button" onclick="btnCancel()">Cancel</button>
+    </p>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    <script src="@Url.Content("~/Content/Plugins/Colpick/js/colpick.js")"></script>
+    <script type="text/javascript">
+        //function
+        function printValue(sliderID, textbox) {
+            $(textbox).val($(sliderID).val());
+        }
+        //BUTTON OK | ACCEPT | CANCEL
+
+        //Accept
+        function btnAccept() {
+            var elm = '@Request.QueryString["element"]';
+            var css = fnGetPropesties();
+            window.opener.setProperties(elm, css);
+        }
+        
+        //FUNCTION GET VALUE PROPERTIES
+        function fnGetPropesties() {
+            var objCSSFull = {};
+            $('[name]').each(function () {
+                if ($(this).val() != "") {
+                if($(this).attr("name").endsWith("radius"))
+                    objCSSFull[$(this).attr("name")] = $(this).val() + "px";
+                else if ($(this).attr("name").endsWith("image")) {
+                    objCSSFull[$(this).attr("name")] = "url('"+ $(this).val() + "')";
+                }
+                    else
+                    objCSSFull[$(this).attr("name")] = $(this).val();
+                }
+            });
+            alert(JSON.stringify(objCSSFull));
+            return objCSSFull;
+        }
+        
+        //FUNCTION SET VALUE PROPERTIES
+
+        function fnSetBackgroundColorInput(hex) {
+            
+        }
+
+        function fnSetBackgroundPosition(pos) {
+            $('[name="background-position"]').val(pos);
+            fnSetBackgroundPositionXY(pos);
+        }
+        function fnSetBackgroundPositionXY(pos) {
+            var oPos = pos.split(" ");
+            $('[name="background-position-x"]').val(parseInt(oPos[0]) + '%');
+            $('[name="background-position-y"]').val(parseInt(oPos[1]) + '%');
+        }
+        
+        //FUNCTION BUTTON CLICK
+        //btnOK
+        function btnOk() {
+            btnAccept();
+            btnCancel();
+        }
+
+        //CANCEL
+        function btnCancel() {
+            window.close();
+        }
+
+
+        //RGB TO HEX
+        function RgbaTohex(rgba) {
+            var objRgba = RgbaToObj(rgba);
+
+            return componentToHex(objRgba.r) + componentToHex(objRgba.g) + componentToHex(objRgba.b);
+        }
+        function RgbaToObj(rgba) {
+            rgba = rgba.substr(rgba.indexOf("(") + 1, rgba.indexOf(")") - rgba.indexOf("(") - 1);
+
+            var aRgba = rgba.split(',');
+            return { 
+                rgb : {
+                    r: parseInt(aRgba[0]),
+                    g: parseInt(aRgba[1]),
+                    b: parseInt(aRgba[2]),
+                },
+                a: aRgba[3] != undefined ? parseFloat(aRgba[3]) : 1
+            };
+        }
+
+        function componentToHex(c) {
+            var hex = c.toString(16);
+            return hex.length == 1 ? "0" + hex : hex;
+        }
+       
+        //CONVER HEX TO RGB STRING
+
+        function hexToRGBCSS(h, a) {
+            if (a == "" || a == undefined)
+                a = 1;
+            var rgb = hexToRGB(h);
+            return "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + a + ")";
+        }
+
+        //CONVERT HEX TO RGB OBJECT
+        function hexToRGB(h) {
+            h = cutHex(h);
+            return {
+                r: hexToR(h),
+                g: hexToG(h),
+                b: hexToB(h)
+            };
+        }
+        //GET RED FROM HEX
+        function hexToR(h) { return parseInt((cutHex(h)).substring(0, 2), 16); }
+        //GET GREEN FROM HEX
+        function hexToG(h) { return parseInt((cutHex(h)).substring(2, 4), 16); }
+        //GET BLUE FROM HEX
+        function hexToB(h) { return parseInt((cutHex(h)).substring(4, 6), 16); }
+        //REMOVE # IF EXIST
+        function cutHex(h) { return (h.charAt(0) == "#") ? h.substring(1, 7) : h; }
+
+        //CONVERT RGB TO HEX
+        //rgb || rgba
+        
+
+        //STRING LIBRARY
+        String.prototype.startsWith = function(prefix) {
+            return this.indexOf(prefix) === 0;
+        };
+
+        String.prototype.endsWith = function (suffix) {
+            return this.match(suffix + "$") == suffix;
+        };
+
+
+        //COLOR PICKER
+
+        function ColorPicker(elm, hexColor) {
+            if (hexColor[0] == "#") hexColor = hexColor.substr(1, hexColor.length - 1);
+            $(elm).colpick({
+                colorScheme: 'dark',
+                layout: 'hex',
+                color: hexColor,
+                submit: 0,
+                onChange: function (hsb, hex, rgb, el, bySetColor) {
+                    var color = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + $("[name='"+$(el).attr("name")+"-alpha']").val() + ")";
+                    $(el).css('background-color', '#'+hex);
+                    // Fill the text box just if the color was set using the picker, and not the colpickSetColor function.
+                    if (!bySetColor) $(el).val(color);
+                }
+            }).keyup(function () {
+                $(this).colpickSetColor(this.value);
+            });
+        }
+
+
+        $(function () {
+            $('body').delegate(".ui-tabs-anchor", "click", function () {
+                var height = $('#properties-tabs').height() + 140;
+                window.resizeTo(600, height);
+            });
+            
+            //CSS BORDER STYLE
+            //init border style
+            $('.option ul li').each(function () {
+                var value = $(this).data("value");
+                $(this).find("span").css("border-bottom-style", value);
+            });
+            $('.result').each(function () {
+                var value = $(this).data("value");
+                $(this).find("span").css("border-bottom-style", value);
+
+            });
+            
+            //open/close dropdown
+            $('.result').on("click", function () {
+                var op = $(this).next();
+                if ($(op).is(":hidden")) $(op).show();
+                else $(op).hide();
+            });
+
+            //choose style
+            $('.option ul li').on("click", function () {
+                var val = $(this).data("value");
+                $('#bdStyle').val(val);
+                $('.result').html($(this).html());
+                $('.option').hide();
+            });
+            
+
+            //ACCORDION
+            var icons = {
+                header: "ui-icon-circle-arrow-e",
+                activeHeader: "ui-icon-circle-arrow-s"
+            };
+            $("#accordion").accordion();
+            $("#properties-tabs").tabs();
+            $("#toggle").button().click(function () {
+                if ($("#accordion").accordion("option", "icons")) {
+                    $("#accordion").accordion("option", "icons", null);
+                } else {
+                    $("#accordion").accordion("option", "icons", icons);
+                }
+            });
+
+            $('#bdSize').on("change", function () {
+                $('.option li span, .result span').css({ "border-bottom-width": $(this).val() + "px" });
+            });
+            //COLOR PICK
+
+
+            ColorPicker('[name="border-color"]', "ffffff");
+            ColorPicker('[name="background-color"]', "ffffff");
+
+
+            $($("[name$='alpha']")).on("change", function () {
+                var inputName ='[name="' + $(this).attr("name").replace("-alpha", "")+'"]';
+                var inputValue = $(inputName).val();
+                
+                if (inputValue == "")
+                    $(inputName).val("rgba(255,255,255,1)");
+                else {
+                    inputValue = inputValue.substr(0, inputValue.lastIndexOf(",")) + "," +$(this).val()+ ")";
+                    $(inputName).val(inputValue);
+                }
+            });
+
+            $('.bgSize-custom').hide();
+            $('#bgSize').on("change", function () {
+                if ($(this).val() == "custom")
+                    $('.bgSize-custom').show();
+                else {
+                    $('.bgSize-custom').hide();
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

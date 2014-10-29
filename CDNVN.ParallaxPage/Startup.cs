@@ -1,4 +1,6 @@
-﻿using Microsoft.Owin;
+﻿using System.Data.Entity;
+using CDNVN.ParallaxPage.Models;
+using Microsoft.Owin;
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(CDNVN.ParallaxPage.Startup))]
