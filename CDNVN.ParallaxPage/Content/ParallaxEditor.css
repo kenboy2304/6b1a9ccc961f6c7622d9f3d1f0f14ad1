@@ -1,0 +1,362 @@
+﻿body {
+    background: #F9F9FB;
+    position: relative;
+    padding: 0;
+    padding-top: 50px;
+}
+
+ol, ul, li {
+    list-style: none;
+}
+
+a {
+    color: #404040;
+}
+
+    a.btn {
+        cursor: default;
+        color: black;
+    }
+
+        a.btn:hover {
+            color: cadetblue;
+        }
+
+.border-color-1 {
+    border-color: #CCCEDB;
+}
+
+.background-color-2 {
+    background: #CCCEDB;
+}
+
+.background-color-1 {
+    background: #EEEEF2;
+}
+
+
+
+.navbar {
+    border-bottom: 2px #cccedb solid;
+    min-height: 0;
+}
+
+.colpick {
+    z-index: 2000;
+}
+
+body > .logo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+}
+
+input[type="text"] {
+    border: #cccedb 1px solid;
+}
+
+input[type="checkbox"] {
+    vertical-align: middle;
+    position: relative;
+    top: -3px;
+}
+
+.logo {
+    height: 50px;
+    background: #CCCEDB;
+    float: left;
+}
+
+    .logo h1 {
+        font-weight: bold;
+        font-size: 20px;
+        padding: 0;
+        margin: 0 10px;
+        height: 52px;
+        line-height: 52px;
+        cursor: default;
+    }
+
+.navbar {
+    height: 50px;
+}
+
+    .navbar .container {
+        float: left;
+        height: 48px;
+        margin-left: 210px;
+    }
+
+        .navbar .container ul {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            float: left;
+            padding: 0 5px;
+        }
+
+        .navbar .container input {
+            text-align: center;
+        }
+
+
+
+
+        .navbar .container li {
+            float: left;
+            padding: 12px 0;
+        }
+
+            .navbar .container li span, .navbar .container li .btn {
+                padding: 5px;
+                line-height: 27px;
+                text-align: center;
+            }
+
+            .navbar .container li span {
+                padding: 0 2px;
+            }
+
+            .navbar .container li .grid-color {
+                text-indent: -9999px;
+            }
+
+            .navbar .container li button {
+                font-size: 12px;
+                margin-left: 10px;
+            }
+
+#parallax-controller {
+    width: 230px;
+    border-radius: 0;
+    padding: 0;
+    font-size: 11px;
+    position: fixed;
+    top: 60px;
+    right: 25px;
+    border-color: #CCCEDB;
+}
+
+    #parallax-controller .ui-tabs-nav {
+        border-radius: 0;
+        border: none;
+        color: #cccedb;
+        padding: 0;
+    }
+
+    #parallax-controller .ui-state-default {
+        background: #404040;
+        color: #fff;
+        border: none;
+        border-radius: 0;
+    }
+
+        #parallax-controller .ui-state-default a {
+            padding: 5px 7px;
+            color: white;
+        }
+
+    #parallax-controller .ui-tabs-active {
+        background: #EEEEF2;
+    }
+
+        #parallax-controller .ui-tabs-active a {
+            color: #404040;
+            cursor: default;
+        }
+
+    #parallax-controller .ui-wrapper-tabs {
+        background: #eeeef2;
+    }
+
+    #parallax-controller .sortable {
+        padding: 5px 0 10px 0;
+        margin: 0;
+        max-height: 200px;
+        overflow: auto;
+    }
+
+
+        #parallax-controller .sortable .sortable-item {
+            border: 1px #CCCEDB solid;
+            background: white;
+            margin-top: -1px;
+        }
+
+            #parallax-controller .sortable .sortable-item a {
+                padding: 5px;
+                width: 190px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: block;
+                cursor: default;
+            }
+
+                #parallax-controller .sortable .sortable-item a:hover {
+                    text-decoration: none;
+                }
+
+                #parallax-controller .sortable .sortable-item a:before {
+                    font-family: 'Glyphicons Halflings';
+                    content: "\e072";
+                    font-size: 10px;
+                    padding-right: 5px;
+                }
+
+        #parallax-controller .sortable .active {
+            background: #cccedb;
+        }
+
+.move {
+    cursor: move;
+}
+
+#parallax-tools {
+    width: 60px;
+    position: fixed;
+    top: 60px;
+    left: 25px;
+    z-index: 99999;
+    border-style: solid;
+    border-width: 1px;
+}
+
+    #parallax-tools dt {
+        padding: 3px;
+        position: relative;
+    }
+
+        #parallax-tools dt span {
+            font-size: 7px;
+            position: absolute;
+            font-weight: 500;
+            right: 5px;
+            top: 10px;
+            cursor: default;
+        }
+
+    #parallax-tools dd li {
+        position: relative;
+    }
+
+        #parallax-tools dd li ul {
+            position: absolute;
+            margin: 0;
+            padding: 0;
+            top: 0;
+            left: 0;
+        }
+
+        #parallax-tools dd li ul {
+            position: absolute;
+            background: #EEEEF2;
+            border: 1px #cccedb solid;
+            margin-top: -1px;
+            top: -1px;
+            left: 150px;
+        }
+
+    #parallax-tools dd > ul > li > ul {
+        left: 40px;
+    }
+
+    #parallax-tools dd li ul li {
+        width: 150px;
+    }
+
+    #parallax-tools dd li ul {
+        display: none;
+    }
+
+    #parallax-tools dd li:hover > ul {
+        display: block;
+    }
+
+
+    #parallax-tools .parallax-tools-group ul {
+        margin: 0;
+        padding: 0 9px;
+    }
+
+#parallax-gridviews {
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+}
+
+    #parallax-gridviews table {
+        width: 100%;
+        height: 100%;
+    }
+
+        #parallax-gridviews table td {
+            border: aqua 1px solid;
+        }
+
+#slide-wrapper .slide {
+    min-height: 201px;
+    box-sizing: border-box;
+}
+/*z-index*/
+#parallax-controller, #parallax-navbar, #parallax-tools {
+    z-index: 1000;
+}
+
+#parallax-gridviews {
+    z-index: 999;
+}
+
+    #parallax-gridviews table {
+        opacity: 0.7;
+    }
+
+
+.slide {
+    border-bottom: #404040 1px dashed;
+}
+
+.layer {
+    display: inline-block;
+    position: absolute !important;
+    top: 200px;
+    left: 200px;
+    z-index: 1;
+    border: 1px #7f7f7f dashed;
+}
+
+    .layer .layer-name {
+        position: absolute !important;
+        right: 0;
+        top: -19px;
+        padding: 0 5px;
+        max-width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        background: #CCCEDB;
+        text-shadow: none;
+    }
+
+    .layer.active {
+        border-style: solid;
+        box-shadow: 0 0 5px;
+    }
+
+        .layer.active > .layer-name {
+            background: #0a0a0a;
+            color: white;
+        }
+
+    .layer > .overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 89;
+        top: 0;
+        left: 0;
+    }

@@ -1,0 +1,333 @@
+﻿@{
+    Layout = null;
+}
+
+@{
+    Layout = null;
+    var type = Request.QueryString["type"];
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>SLide Editor</title>
+    @Styles.Render("~/Content/jqueryui")
+    <link href="http://bgrins.github.io/spectrum/spectrum.css" rel="stylesheet" />
+    @*<link href="@Url.Content("~/Content/Plugins/Colpick/css/colpick.css")" rel="stylesheet" />*@
+
+    <link href="@Url.Content("~/Content/ParallaxProperties.css")" rel="stylesheet" />
+    <style>
+    </style>
+</head>
+<body>
+    <div class="viewer"></div>
+    <dl>
+        <dt>General</dt>
+        <dd>
+            <div class="group">
+                <span>Padding</span>
+                <input type="text" name="padding" />
+            </div>
+            <div class="group">
+                <span>Shadow</span>
+                <input type="text" class="box-shadow hvbs" />
+            </div>
+            <div class="group">
+                <span></span>
+                <input type="text" value="ffffff" style="width: 24px; text-indent: -9999px" class="color-pick box-shadow color">
+                <select class="box-shadow inset">
+                    <option value="">outset</option>
+                    <option value="inset">inset</option>
+                </select>
+                
+            </div>
+            <div class="group">
+                <input type="text" name="box-shadow" disabled="" style="width: 272px" />
+            </div>
+
+        </dd>
+        <dt>Background</dt>
+        <dd>
+            <div class="group">
+                <span>Color</span>
+                <input type="text" name="background-color" class="color-pick" value="#ffffff" style="width: 24px; text-indent: -9999px" />
+            </div>
+            <div class="group">
+                <span>Image</span>
+                <input type="text" name="background-image" style="width: 212px;" />
+            </div>
+
+            <div class="group">
+                <span>Repeat</span>
+                <select class="group-item" id="bgRepeat" name="background-repeat">
+                    <option selected="selected" value="no-repeat">
+                        no-repeat
+                    </option>
+                    <option value="repeat-x">
+                        repeat-x
+                    </option>
+                    <option value="repeat-y">
+                        repeat-y
+                    </option>
+                    <option value="repeat">
+                        repeat
+                    </option>
+                </select>
+            </div>
+            <div class="group">
+                <span>Position</span>
+                <select class="group-item" name="background-position">
+                    <option selected="selected" value="0% 0%">
+                        left top
+                    </option>
+                    <option value="0% 50%">
+                        left center
+                    </option>
+                    <option value="0% 100%">
+                        left bottom
+                    </option>
+                    <option value="50% 0%">
+                        center top
+                    </option>
+                    <option value="50% 50%">
+                        center center
+                    </option>
+                    <option value="50% 100%">
+                        center bottom
+                    </option>
+                    <option value="100% 0%">
+                        right top
+                    </option>
+                    <option value="100% 50%">
+                        right center
+                    </option>
+                    <option value="100% 100%">
+                        right bottom
+                    </option>
+                </select>
+            </div>
+            <div class="group">
+                <span>Size</span>
+                <select class="group-item" name="background-size">
+                    <option selected="selected" value="initial">
+                        initial
+                    </option>
+                    <option value="contain">
+                        contain
+                    </option>
+                    <option value="cover">
+                        cover
+                    </option>
+                    <option value="100% 100%">
+                        fixed
+                    </option>
+                </select>
+            </div>
+        </dd>
+        <dt>Border</dt>
+        <dd>
+            <div class="group">
+                <span>Style</span>
+                <select name="border-style" style="display: none;">
+                    <option value="none">No border.</option>
+                    <option value="dotted">dotted</option>
+                    <option value="dashed">dashed</option>
+                    <option value="solid">solid</option>
+                    <option value="double">double</option>
+                    <option value="groove">A groove border.</option>
+                    <option value="ridge">A ridge border.</option>
+                    <option value="inset">An inset border.</option>
+                    <option value="outset">An outset border.</option>
+                    <option value="hidden">A hidden border.</option>
+                </select>
+                <div class="border-style">
+                    <div class="result none" data-value="none">No border.<span></span></div>
+                    <div class="option">
+                        <ul>
+                            <li class="none" data-value="none">No border.<span></span></li>
+                            <li class="dotted" data-value="dotted">A dotted border.<span></span></li>
+                            <li class="dashed" data-value="dashed">A dashed border.<span></span></li>
+                            <li class="solid" data-value="solid">A solid border.<span></span></li>
+                            <li class="double" data-value="double">A double border.<span></span></li>
+                            <li class="groove" data-value="groove">A groove border.<span></span></li>
+                            <li class="ridge" data-value="ridge">A ridge border.<span></span></li>
+                            <li class="inset" data-value="inset">An inset border.<span></span></li>
+                            <li class="outset" data-value="outset">An outset border.<span></span></li>
+                            <li class="hidden" data-value="hidden">A hidden border.<span></span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="group">
+                <span></span>
+                <input type="text" name="border-color" class="color-pick" value="#ffffff" style="width: 24px; text-indent: -9999px" />
+                <input type="text" name="border-width" value="" style="width: 152px;" placeholder="Width" />
+            </div>
+            <div class="group">
+                <span>Radius</span>
+            </div>
+            <div class="group child">
+                <span>Top:</span>
+                <input type="text" name="border-top-left-radius" value="" style="width: 30px;" />
+                <span>Left</span>
+                <input type="text" name="border-top-right-radius" value="" style="width: 30px;" />
+                <span>Right</span>
+            </div>
+            <div class="group child">
+                <span>Bottom:</span>
+                <input type="text" name="border-bottom-left-radius" value="" style="width: 30px;" />
+                <span>Left</span>
+                <input type="text" name="border-bottom-right-radius" value="" style="width: 30px;" />
+                <span>Right</span>
+            </div>
+        </dd>
+    </dl>
+
+    <p class="group-button system" style="text-align: right">
+        <button class="btn btn-ok" type="button">Ok</button>
+        <button class="btn btn-cancel" type="button">Cancel</button>
+    </p>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    <script src="@Url.Content("http://bgrins.github.io/spectrum/spectrum.js")"></script>
+    @*<script src="@Url.Content("~/Content/Plugins/Colpick/js/colpick.js")"></script>*@
+    <script src="@Url.Content("~/Scripts/StringPropetype.js")"></script>
+    <script type="text/javascript">
+
+        //COLOR PICKER
+        function ColorPicker(elm) {
+            
+            var hexColor = $(elm).val();
+            var $elm = $(elm);
+            //if (hexColor[0] == "#") hexColor = hexColor.substr(1, hexColor.length - 1
+            $(elm).spectrum({
+                color: hexColor,
+                allowEmpty: true,
+                showAlpha: true,
+                clickoutFiresChange: true,
+                showInitial: true,
+                showButtons: false,
+                showInput: true,
+                preferredFormat: "rgb",
+                hide: function () {
+                    
+                    Accept();
+                }
+                
+            });
+        }
+
+        function SetValue(css) {
+            for (x in css) {
+                var value = css[x];
+                if (x.endWith("image")) {
+                    value = value.substr(4, value.length - 5);
+                }
+                $("[name='" + x + "']").val(value);
+                if (x.endWith("color")) {
+                    
+                    ColorPicker("[name='" + x + "']");
+                }
+                if (x.endWith("shadow")) {
+                    if (value != "none") {
+                        var color = value.substr(0, value.indexOf(")") + 1);
+                        $(".color."+x).val(color);
+                        ColorPicker(".color." + x);
+                        value = value.replace(color, "");
+                        if (value.endWith("inset")) {
+                            $('.inset.' + x).val("inset");
+                            value = value.replace("inset","");
+                        }
+                        $('.hvbs.' + x).val($.trim(value));
+                    }
+                }
+            }
+
+        }
+        
+        $(function () {
+            
+            //alert(JSON.stringify(window.dataCSS));
+            
+            ColorPicker('.color-pick');
+            SetValue(window.dataCSS);
+            
+
+            $('dl dd:not(:first-of-type)').hide();
+            $('dt').on("click", function () {
+                $(this).next().stop().slideToggle();
+            });
+
+
+            $('.border-style .option').hide();
+            $('.border-style .result, .border-style .option li').on("click", function () {
+                $('.border-style .option').toggle();
+            });
+            $('.border-style .option li').on("click", function () {
+                var val = $(this).attr("class");
+                $('.border-style .result').removeAttr("class").addClass(val + " result");
+                $("[name='border-style']").val(val);
+                Accept();
+            });
+            $('.background-color-opacity, .border-color-opacity').on("change", function () {
+                $(this).next().val($(this).val());
+            });
+            
+            $("input,select").on("blur change", function () {
+                SetInputName(this, "box-shadow");
+                Accept();
+            });
+
+            $(".system .btn").on("click", function() {
+                if ($(this).hasClass("btn-cancel")) {
+                    var elm = '@Request.QueryString["element"]';
+                    var css = window.dataCSS;
+                    window.opener.setProperties(elm, css);
+                }
+                window.close();
+                
+                return false;
+
+            });
+        });
+
+        
+
+        function SetInputName(elm,name) {
+            var val = "";
+            if ($(elm).hasClass(name)) {
+                $('.' + name).each(function() {
+                    val += " " + $(this).val();
+                });
+                $("[name='" + name + "']").val(val);
+            }
+        }
+
+        function GetValue() {
+            var css = {};
+            $("[name]").each(function () {
+                var name = $(this).attr("name");
+                var val = $(this).val();
+                
+                    if (name.endWith("image")) {
+                        val = $(this).val() == "" ? "none" : "url(" + val + ")";
+                        css[name] = val;
+                    }
+                    else
+                        css[name] = $(this).val();
+            });
+
+            return css;
+        }
+        
+        function Accept() {
+            var elm = '@Request.QueryString["element"]';
+            var css = GetValue();
+            window.opener.setProperties(elm, css);
+        }
+        
+
+        
+    </script>
+
+</body>
+</html>

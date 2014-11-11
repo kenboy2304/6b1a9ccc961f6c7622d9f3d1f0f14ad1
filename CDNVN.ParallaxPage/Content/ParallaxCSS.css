@@ -1,9 +1,14 @@
 ﻿body {
     background: #F9F9FB;
+    position: relative;
 }
 
 ol, ul, li {
     list-style: none;
+}
+
+a {
+    color: #404040;
 }
 
 .manager-color-header {
@@ -12,6 +17,80 @@ ol, ul, li {
 
 .manager-color-content {
     background: #EEEEF2;
+}
+
+.navbar {
+    border-bottom: 2px #cccedb solid;
+    min-height: 0;
+}
+
+body > .logo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+}
+
+.logo {
+    height: 50px;
+    background: #CCCEDB;
+    float: left;
+}
+
+.system-controller {
+    float: left;
+    height: 48px;
+    margin-left: 198px;
+}
+
+    .system-controller ul {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        float: left;
+        padding: 0 5px;
+    }
+    .system-controller input {
+        text-align: center;
+    }
+
+
+.grid-color {
+    text-indent: -9999px;
+}
+.colpick {
+    z-index: 2000;
+}
+
+    .system-controller li {
+        float: left;
+        padding: 12px 0;
+        
+    }
+
+        .system-controller li span, .system-controller li .btn {
+            padding: 0 5px;
+            line-height: 27px;
+            text-align: center;
+        }
+         .system-controller li span {
+             padding: 0 2px;
+         }
+
+        .system-controller li button {
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+
+
+.logo h1 {
+    font-weight: bold;
+    font-size: 20px;
+    padding: 0;
+    margin: 0 10px;
+    height: 52px;
+    line-height: 52px;
 }
 
 #tabs {
@@ -107,20 +186,29 @@ ol, ul, li {
         background: #EEEEF2;
     }
 
-    .tools dt {
-        font-weight: 300;
-        font-size: 12px;
-        background: #CCCEDB;
-        border: 3px #cccedb solid;
-        box-sizing: border-box;
-        width: 100%;
-        
-        font-weight: 700;
-        position: relative;
-    }
-    .tools dt:first-child,.ui-tabs-nav {
+.tools-gb1 {
+    background: #EEEEF2;
+}
+
+.tools-gb2 {
+    background: #CCCEDB;
+}
+
+.tools dt {
+    font-weight: 300;
+    font-size: 12px;
+    background: #CCCEDB;
+    border: 3px #cccedb solid;
+    box-sizing: border-box;
+    width: 100%;
+    font-weight: 700;
+    position: relative;
+}
+
+    .tools dt:first-child, .ui-tabs-nav {
         cursor: move;
     }
+
     .tools dt span {
         color: #333;
         font-size: 7px;
@@ -131,30 +219,32 @@ ol, ul, li {
         cursor: default;
     }
 
-    .tools dd {
-        padding: 5px;
+.tools dd {
+    padding: 5px;
+}
+
+    .tools dd ul {
+        margin: 0;
+        padding: 0;
     }
 
-        .tools dd ul {
-            margin: 0;
-            padding: 0;
+    .tools dd a {
+        float: left;
+        width: 50px;
+        text-align: center;
+        color: #0a0a0a;
+    }
+
+        .tools dd a.dash {
+            border-top: #CCCEDB 1px solid;
+            width: 60px;
+            margin-left: -6px !important;
         }
 
-        .tools dd a {
-            float: left;
-            width: 50px;
-            text-align: center;
-            color: #0a0a0a;
-        }
-
-            .tools dd a.dash {
-                border-top: #CCCEDB 1px solid;
-                width: 60px;
-                margin-left: -6px !important;
-            }
 #slide-container.hide-name .layer-name {
     display: none !important;
 }
+
 .slide {
     opacity: 0.5;
     width: 100%;

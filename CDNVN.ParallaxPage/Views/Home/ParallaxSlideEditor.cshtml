@@ -1,0 +1,41 @@
+﻿@{
+    Layout = "../Shared/_LayoutEditor.cshtml";
+}
+<div id="slide-wrapper">
+
+</div>
+@section styles
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/Plugins/colorbox/colorbox.css")" />
+}
+@section scripts
+{
+    <script src="@Url.Content("~/Content/Plugins/colorbox/jquery.colorbox-min.js")"></script>
+    <script src="@Url.Content("~/Scripts/StringPropetype.js")"></script>
+    <script src="@Url.Content("~/Scripts/screen.js")"></script>
+    <script src="@Url.Content("~/Scripts/ParallaxAnimation.js")"></script>
+    <script src="@Url.Content("~/Scripts/parllaxJS_OOP.js")"></script>
+    <script type="text/javascript">
+        var p = new ParallaxScroller('@Url.Action("ParallaxProperties")');
+        p.InitProperties('@Url.Content("~/Scripts/ParallaxProperties.js")', '@Url.Action("ParallaxProperties")');
+        p.InitAnimation('@Url.Content("~/Scripts/ParallaxAnimation.js")');
+        $(function () {
+
+            p.InitLayer("#layer-controller", '@Url.Action("LayerEditor")');
+            p.LayerButtons({ Text: ".create-layer-text", Image: ".create-layer-image", IFrame: ".create-layer-iframe" }, "#layer-tools .btn-delete", "#layer-tools .btn-properties", "#layer-tools .btn-animation");
+            p.ControlLayer();
+            p.InitSlide("#slide-controller", "#slide-wrapper");
+            p.SlideButtons("#slide-tools .btn-create", "#slide-tools .btn-delete", "#slide-tools .btn-properties", '.slide-width', '.slide-height');
+            p.ControlSlide();
+        });
+
+        function setLayerValue(name, value, css) {
+            p.SetValueLayer(name, value, css);
+        }
+
+        function setProperties(elm, css) {
+            p.Properties.Set(elm, css);
+        }
+    </script>
+}
+

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/csseditor")
     @Styles.Render("~/Content/jqueryui")
     <!--<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css" />
         -->
@@ -25,18 +25,19 @@
 
 </head>
     <body>
+        @Html.Partial("_ParallaxController")
         <div class="">
             @RenderBody()
             <hr />
             <footer>
-                <p>&copy; @DateTime.Now.Year - Parallax Editor</p>
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
             </footer>
         </div>
-        @Html.Partial("_PController");
+        
        
         @Scripts.Render("~/bundles/jqueryui")
         @Scripts.Render("~/bundles/bootstrap")
-        <script type="text/javascript" src="@Url.Content("~/Scripts/parllaxJS-tools.js")"></script>
+        @*<script type="text/javascript" src="@Url.Content("~/Scripts/parllaxJS-tools.js")"></script>*@
         <script src="@Url.Content("~/Content/Plugins/Colpick/js/colpick.js")"></script>
         @RenderSection("scripts", required: false)
     </body>

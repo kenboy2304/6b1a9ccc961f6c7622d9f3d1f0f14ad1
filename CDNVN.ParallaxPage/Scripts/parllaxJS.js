@@ -52,6 +52,10 @@ function fnSlideActive(element) {
     $(element).addClass("active");
     //active item in control slide
     $(elementID(objPSlide.ControllerId)).find('[data-slide="' + element + '"]').parent().addClass("active");
+
+    $('.slide-width').val($(elementID(element)).width());
+    $('.slide-height').val($(elementID(element)).height());
+
     fnSliceActiveChangeLayer(element);
 
 }
@@ -206,7 +210,7 @@ function fnLayerInsert(strType) {
         //set layer value
         fnLayerSetIndex();
         //drag and reiset
-        $(elementID(objPLayer.CurentId)).draggable().resizable();
+        $(elementID(objPLayer.CurentId)).draggable().resizable({ handles: "n, e, s, w, se" });
         //call windows wrapper
         fnLayerEditor(strType, objPLayer.Default[strType]);
     }
@@ -219,7 +223,7 @@ function setLayerValue(type, value, objCss) {
     $(elmLayer).find('.layer-content').html(value);
     if(objCss!=undefined)
         $(elmLayer).css(objCss);
-    $(elmLayer).draggable().resizable();
+    $(elmLayer).draggable().resizable({ handles: "n, e, s, w, se" });
     var name = "";
     if (type == objPLayer.Type.Text || type == objPLayer.Type.Header)
         name = value.strip_tags();
@@ -279,6 +283,9 @@ $("body").delegate(".slide .layer", "click", function () {
 $('body').delegate(".layer", "dragstart", function () {
     fnLayerActive(elementID($(this).attr("id")));
 });
+$('body').delegate(".layer", "resizestart", function () {
+    fnLayerActive(elementID($(this).attr("id")));
+});
 
 //JS select layer controller
 $(objPLayer.ControllerId).delegate(".sortable-item a", "click", function () {
@@ -317,7 +324,6 @@ $('.btn-del').on("click", function () {
         
     }
     return false;
-    
 });
 
 //GENARAL
@@ -339,6 +345,30 @@ $('.btn-layer-properties').on("click", function () {
     }
     return false;
 });
+
+//fn CREATE GRID SYSTEM
+
+function fnGridSystem() {
+    var block = $(".grid-block").val();
+    if (block == "") {
+        block = 5;
+        $(".grid-block").val(block);
+    }
+    var cols = block;
+    var rows = $('body').height() / ($('body').width() / block);
+    var color = $('.grid-color').val();
+    //alert("W:" + $('body').width() + "H:" + $('body').height());
+    var html = "<table class='table'>";
+    for (var i = 0; i < rows; i++) {
+        html += "<tr>";
+        for (var j = 0; j < cols; j++) {
+            html += "<td style='border-color:#"+color+"' ></td>";
+        }
+        html += "</tr>";
+    }
+    html += "</table>";
+    $('.grid-system').html(html);
+}
 
 //Set CSS slide
 function setProperties(elm, objCss, all) {
@@ -453,7 +483,8 @@ function fnOpen(slides) {
     objPSlide.Id = maxSlideId;
     //JQ HTML Data
     $('#slide-container').html(html);
-    $('.layer').draggable().resizable();
+    $('.slide').resizable({ handles: "s" });
+    $('.layer').draggable().resizable({ handles: "n, e, s, w, se" });
     //Call Active First
     fnSlideActive(slides[0]["id"]);
 }

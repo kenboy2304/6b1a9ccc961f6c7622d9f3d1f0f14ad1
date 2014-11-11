@@ -1,0 +1,179 @@
+﻿body, dl {
+    margin: 0;
+    padding: 0;
+}
+
+.viewer {
+    position: fixed;
+    background: black;
+    width: 50%;
+    height: 32px;
+    bottom: 0;
+    z-index: 200;
+}
+
+dl {
+    width: 100%;
+    height: 493px;
+    overflow-y: scroll;
+}
+
+dt, dd {
+    margin: 0;
+    padding: 5px;
+}
+
+dt {
+    background: #CCCEDB;
+    font-weight: 700;
+}
+
+.manager-color-header {
+    background: #CCCEDB;
+}
+
+dd {
+    border-bottom: #cccedb 1px solid;
+}
+
+    dd .group {
+        clear: both;
+    }
+        dd .group .sp-replacer {
+            margin-left: 7px;
+            margin-top: -1px;
+        }
+        dd .group .sp-input {
+            background: white !important;
+        }
+
+        dd .group > span, dd .group > input, dd .group select {
+            height: 27px;
+            margin: 5px;
+        }
+
+        dd .group select {
+            height: 32px;
+        }
+
+        dd .group input[type="text"] {
+            width: 212px;
+        }
+
+
+
+        dd .group > span:first-child {
+            min-width: 48px;
+            display: block;
+            float: left;
+            line-height: 25px;
+        }
+
+        dd .group.child > span:first-child {
+            margin-left: 30px;
+        }
+
+.group-button {
+    position: fixed;
+    box-sizing: border-box;
+    margin: 0;
+    bottom: 0;
+    width: 100%;
+    background: #63ABDC;
+    border: 5px #63ABDC solid;
+}
+
+ul, li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.border-style {
+    position: relative;
+    height: 20px;
+    float: left;
+}
+
+    .border-style .result {
+        position: relative;
+        margin: 5px;
+        padding: 3px;
+        height: 24px;
+        width: 211px;
+        border: #CCCEDB 1px solid;
+    }
+
+    .border-style .option {
+        position: absolute;
+        width: 217px;
+        top: 37px;
+        left: 5px;
+        border: #CCCEDB 1px solid;
+        z-index: 100;
+    }
+
+        .border-style .option li {
+            float: left;
+            padding: 5px;
+            height: 22px;
+            margin-top: -1px;
+            width: 207px;
+            position: relative;
+            background: white;
+            overflow: hidden;
+        }
+        .border-style .option li:not(.none),.border-style .result:not(.none) {
+            text-indent: -9999px;
+        }
+
+            .border-style .option li:hover {
+                background: #cccedb;
+            }
+
+            .border-style .option li > span, .border-style .result span {
+                width: 205px;
+                float: left;
+                position: absolute;
+                left: 0;
+                top: 15px;
+                margin: 0 5px;
+            }
+
+
+.dotted span {
+    text-indent: -9999px;
+    border-bottom-style: dotted;
+}
+.dashed span {
+    text-indent: -9999px;
+    border-bottom-style: dashed;
+}
+.solid span {
+    text-indent: -9999px;
+    border-bottom-style: solid;
+}
+.double span {
+    text-indent: -9999px;
+    border-bottom-style: double;
+}
+.groove span {
+    text-indent: -9999px;
+    border-bottom-style: groove;
+}
+.ridge span {
+    text-indent: -9999px;
+    border-bottom-style: ridge;
+}
+.inset span {
+    text-indent: -9999px;
+    border-bottom-style: inset;
+}
+.outset span {
+    text-indent: -9999px;
+    border-bottom-style: outset;
+}
+.hidden span {
+    text-indent: -9999px;
+    border-bottom-style: hidden;
+}

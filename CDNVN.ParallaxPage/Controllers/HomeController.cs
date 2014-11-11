@@ -21,6 +21,18 @@ namespace CDNVN.ParallaxPage.Controllers
 
             return View();
         }
+        public ActionResult ParallaxSlideEditor()
+        {
+            ViewBag.Message = "Your application description page.";
+
+            return View();
+        }
+        public ActionResult ParallaxProperties()
+        {
+
+            return View();
+        }
+        
         public ActionResult Properties()
         {
             ViewBag.Message = "Your application description page.";

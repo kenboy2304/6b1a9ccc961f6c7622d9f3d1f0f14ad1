@@ -1,0 +1,141 @@
+﻿
+<div id="parallax-controller" class="manager-color-content tabs">
+    <ul class="move">
+        <li><a href="#slide-controller">Sliders</a></li>
+        <li><a href="#layer-controller">Layers</a></li>
+        <li><a href="#animation-controller">Animations</a></li>
+    </ul>
+    <div class="ui-wrapper-tabs manager-color-content">
+        <ul id="slide-controller" class="sortable"></ul>
+    </div>
+    <div class="ui-wrapper-tabs manager-color-content">
+        <ul id="layer-controller" class="sortable"></ul>
+    </div>
+    <div class="ui-wrapper-tabs manager-color-content">
+        <ul id="animation-controller" class="sortable"></ul>
+    </div>
+</div>
+<div class="logo">
+    <h1>CDNVN PARALLAX <span class="glyphicon glyphicon-chevron-left" style="font-size: 16px"></span></h1>
+</div>
+<div id="parallax-navbar" class="navbar navbar-inverse navbar-fixed-top background-color-1 border-color-1 ">
+    <div class="container">
+        <ul>
+            <li>
+                <span>Grid:</span>
+                <input type="text" class="grid-cols" name="grid-cols" style="width: 30px" placeholder="C" />
+                <input type="text" class="grid-rows" name="grid-rows" style="width: 30px" placeholder="R" />
+                <input type="text" class="grid-color" name="grid-rows" style="width: 30px; background: #7FFFD4; " value="7FFFD4" />
+                
+                <input type="checkbox" class="grid-fixed" name="grid-fixed"/>
+                <span>Fixed</span>
+                <button class="grid-btn">Ẩn/hiện</button>
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <span>Slide:</span>
+                <input type="text" class="slide-width" name="slide-width" style="width: 50px" placeholder="W" />
+                <span>x</span>
+                <input type="text" class="slide-height" name="slide-height" style="width: 50px" placeholder="H" />
+            </li>
+            <li>
+                <span>Layer:</span>
+                <input type="text" class="layer-width" name="layer-width" style="width: 50px" placeholder="W" />
+                <span>x</span>
+                <input type="text" class="layer-height" name="layer-height" style="width: 50px" placeholder="H" />
+                <span>/</span>
+                <input type="text" class="layer-top" name="layer-top" style="width: 50px" placeholder="Top" />
+                <span>x</span>
+                <input type="text" class="layer-left" name="layer-left" style="width: 50px" placeholder="Left" />
+            </li>
+        </ul>
+        <ul>
+            <li>
+                <a class="btn" href="" onclick="fnSave(); return false;"><i class="glyphicon glyphicon-floppy-disk"></i></a>
+            </li>
+            <li>
+                <a class="btn btn-download">
+                    <i class="glyphicon glyphicon-cog"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+<dl id="parallax-tools" class="background-color-1  border-color-1">
+    <dt class="move background-color-2">Layer <span class="glyphicon glyphicon-chevron-up"></span> </dt>
+    <dd class="parallax-tools-group">
+        <ul id="layer-tools">
+            <li>
+                <a class="btn btn-create create-layer-text" href="#" style="font-family: georgia; font-size: 18px; font-weight: 700;">
+                    T
+                </a>
+            </li>
+            <li>
+                <a class="btn btn-create create-layer-image" href="#">
+                    <i class="glyphicon glyphicon-picture"></i>
+                </a>
+            </li>
+            <li>
+                <a class="btn btn-create create-layer-iframe" href="#">
+                    <i class="glyphicon glyphicon-globe"></i>
+                </a>
+            </li>
+
+            <li>
+                <a class="dash">
+                </a>
+            </li>
+            <li>
+                <a class="btn btn-animation">
+                    <i class="glyphicon glyphicon-star"></i>
+                </a>
+            </li>
+            <li>
+                <a class="btn btn-properties" href="#" style="font-family: georgia; font-size: 18px; font-weight: 700;">
+                    P
+                </a>
+            </li>
+            <li>
+                <a class="btn btn-showname" href="#">
+                    <i class="glyphicon glyphicon-eye-open"></i>
+                </a>
+            </li>
+            <li>
+                <a class="btn btn-delete" href="#">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </li>
+        </ul>
+    </dd>
+    <dt class=" background-color-2">Slide <span class="glyphicon glyphicon-chevron-up"></span></dt>
+    <dd class="parallax-tools-group">
+        <ul id="slide-tools">
+            <li>
+                <a class="btn btn-create" href="#">
+                    <i class="glyphicon glyphicon-plus"></i>
+                </a>
+            </li>
+            <li>
+                <a class="btn btn-animation">
+                    <i class="glyphicon glyphicon-star"></i>
+                </a>
+            </li>
+            <li>
+                <a class="btn btn-properties" href="#" style="font-family: georgia; font-size: 18px; font-weight: 700;">
+                    P
+                </a>
+            </li>
+            <li>
+                <a class="btn btn-delete" href="#">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </li>
+        </ul>
+    </dd>
+</dl>
+<div id="parallax-gridviews">
+</div>

@@ -190,9 +190,20 @@
     <Content Include="Content\Images\ui-icons_888888_256x240.png" />
     <Content Include="Content\Images\ui-icons_cd0a0a_256x240.png" />
     <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\ParallaxProperties.css" />
+    <Content Include="Content\ParallaxEditor.css" />
     <Content Include="Content\ParallaxCSS.css" />
+    <Content Include="Content\Plugins\colorbox\colorbox.css" />
+    <Content Include="Content\Plugins\colorbox\images\border.png" />
+    <Content Include="Content\Plugins\colorbox\images\controls.png" />
+    <Content Include="Content\Plugins\colorbox\images\loading.gif" />
+    <Content Include="Content\Plugins\colorbox\images\loading_background.png" />
+    <Content Include="Content\Plugins\colorbox\images\overlay.png" />
+    <Content Include="Content\Plugins\colorbox\jquery.colorbox-min.js" />
     <Content Include="Content\Plugins\Colpick\css\colpick.css" />
     <Content Include="Content\Plugins\Colpick\js\colpick.js" />
+    <Content Include="Content\Plugins\spectrum\spectrum.css" />
+    <Content Include="Content\Plugins\spectrum\spectrum.js" />
     <Content Include="Content\preview.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -245,10 +256,15 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\ParallaxProperties.js" />
+    <Content Include="Scripts\ParallaxAnimation.js" />
+    <Content Include="Scripts\parllaxJS_OOP.js" />
     <Content Include="Scripts\parllaxJS-tools.js" />
     <Content Include="Scripts\parllaxJS.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\screen.js" />
+    <Content Include="Scripts\StringPropetype.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="browse.html" />
     <Content Include="Web.config">
@@ -285,6 +301,10 @@
     <Content Include="Views\PresentationManager\Index.cshtml" />
     <Content Include="Views\Shared\_Layout _Manager.cshtml" />
     <Content Include="Views\Shared\_LayoutPreview.cshtml" />
+    <Content Include="Views\Home\ParallaxSlideEditor.cshtml" />
+    <Content Include="Views\Shared\_LayoutEditor.cshtml" />
+    <Content Include="Views\Shared\_ParallaxController.cshtml" />
+    <Content Include="Views\Home\ParallaxProperties.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

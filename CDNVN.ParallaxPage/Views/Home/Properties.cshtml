@@ -29,11 +29,13 @@
             border: 2px solid dimgrey;
             background: red;
         }
+
         [name$='color'] {
             width: 30px;
             border: 2px solid dimgrey;
             text-indent: -999999px;
         }
+
         .group {
             width: 100%;
             float: left;
@@ -131,9 +133,18 @@
 <body>
     <div id="properties-tabs" class="manager-color-content">
         <ul>
+            <li><a href="#properties-general">General</a></li>
             <li><a href="#properties-background">Background</a></li>
             <li><a href="#properties-border">Border</a></li>
         </ul>
+        <div class="ui-wrapper-tabs manager-color-content" id="properties-general">
+            <div class="group">
+                <span class="group-item">Height:</span>
+                <input class="group-item" id="gnHeight" name="height" class="general-height" type="text" width="20" style="width: 40px" />
+                <span class="group-item">px</span>
+
+            </div>
+        </div>
         <div class="ui-wrapper-tabs manager-color-content" id="properties-background">
             <div id="accordion">
                 <h3>Background Color</h3>
@@ -318,6 +329,9 @@
     @Scripts.Render("~/bundles/jqueryui")
     <script src="@Url.Content("~/Content/Plugins/Colpick/js/colpick.js")"></script>
     <script type="text/javascript">
+        $(function() {
+            alert(JSON.stringify(window.dataCSS));
+        });
         //function
         function printValue(sliderID, textbox) {
             $(textbox).val($(sliderID).val());
@@ -330,29 +344,29 @@
             var css = fnGetPropesties();
             window.opener.setProperties(elm, css);
         }
-        
+
         //FUNCTION GET VALUE PROPERTIES
         function fnGetPropesties() {
             var objCSSFull = {};
             $('[name]').each(function () {
                 if ($(this).val() != "") {
-                if($(this).attr("name").endsWith("radius"))
-                    objCSSFull[$(this).attr("name")] = $(this).val() + "px";
-                else if ($(this).attr("name").endsWith("image")) {
-                    objCSSFull[$(this).attr("name")] = "url('"+ $(this).val() + "')";
-                }
+                    if ($(this).attr("name").endsWith("radius"))
+                        objCSSFull[$(this).attr("name")] = $(this).val() + "px";
+                    else if ($(this).attr("name").endsWith("image")) {
+                        objCSSFull[$(this).attr("name")] = "url('" + $(this).val() + "')";
+                    }
                     else
-                    objCSSFull[$(this).attr("name")] = $(this).val();
+                        objCSSFull[$(this).attr("name")] = $(this).val();
                 }
             });
             alert(JSON.stringify(objCSSFull));
             return objCSSFull;
         }
-        
+
         //FUNCTION SET VALUE PROPERTIES
 
         function fnSetBackgroundColorInput(hex) {
-            
+
         }
 
         function fnSetBackgroundPosition(pos) {
@@ -364,7 +378,7 @@
             $('[name="background-position-x"]').val(parseInt(oPos[0]) + '%');
             $('[name="background-position-y"]').val(parseInt(oPos[1]) + '%');
         }
-        
+
         //FUNCTION BUTTON CLICK
         //btnOK
         function btnOk() {
@@ -388,8 +402,8 @@
             rgba = rgba.substr(rgba.indexOf("(") + 1, rgba.indexOf(")") - rgba.indexOf("(") - 1);
 
             var aRgba = rgba.split(',');
-            return { 
-                rgb : {
+            return {
+                rgb: {
                     r: parseInt(aRgba[0]),
                     g: parseInt(aRgba[1]),
                     b: parseInt(aRgba[2]),
@@ -402,7 +416,7 @@
             var hex = c.toString(16);
             return hex.length == 1 ? "0" + hex : hex;
         }
-       
+
         //CONVER HEX TO RGB STRING
 
         function hexToRGBCSS(h, a) {
@@ -432,10 +446,10 @@
 
         //CONVERT RGB TO HEX
         //rgb || rgba
-        
+
 
         //STRING LIBRARY
-        String.prototype.startsWith = function(prefix) {
+        String.prototype.startsWith = function (prefix) {
             return this.indexOf(prefix) === 0;
         };
 
@@ -454,8 +468,8 @@
                 color: hexColor,
                 submit: 0,
                 onChange: function (hsb, hex, rgb, el, bySetColor) {
-                    var color = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + $("[name='"+$(el).attr("name")+"-alpha']").val() + ")";
-                    $(el).css('background-color', '#'+hex);
+                    var color = "rgba(" + rgb.r + "," + rgb.g + "," + rgb.b + "," + $("[name='" + $(el).attr("name") + "-alpha']").val() + ")";
+                    $(el).css('background-color', '#' + hex);
                     // Fill the text box just if the color was set using the picker, and not the colpickSetColor function.
                     if (!bySetColor) $(el).val(color);
                 }
@@ -470,7 +484,7 @@
                 var height = $('#properties-tabs').height() + 140;
                 window.resizeTo(600, height);
             });
-            
+
             //CSS BORDER STYLE
             //init border style
             $('.option ul li').each(function () {
@@ -482,7 +496,7 @@
                 $(this).find("span").css("border-bottom-style", value);
 
             });
-            
+
             //open/close dropdown
             $('.result').on("click", function () {
                 var op = $(this).next();
@@ -497,7 +511,7 @@
                 $('.result').html($(this).html());
                 $('.option').hide();
             });
-            
+
 
             //ACCORDION
             var icons = {
@@ -525,13 +539,13 @@
 
 
             $($("[name$='alpha']")).on("change", function () {
-                var inputName ='[name="' + $(this).attr("name").replace("-alpha", "")+'"]';
+                var inputName = '[name="' + $(this).attr("name").replace("-alpha", "") + '"]';
                 var inputValue = $(inputName).val();
-                
+
                 if (inputValue == "")
                     $(inputName).val("rgba(255,255,255,1)");
                 else {
-                    inputValue = inputValue.substr(0, inputValue.lastIndexOf(",")) + "," +$(this).val()+ ")";
+                    inputValue = inputValue.substr(0, inputValue.lastIndexOf(",")) + "," + $(this).val() + ")";
                     $(inputName).val(inputValue);
                 }
             });

@@ -27,6 +27,9 @@ namespace CDNVN.ParallaxPage
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/csseditor").Include(
+                     "~/Content/bootstrap.css",
+                     "~/Content/ParallaxEditor.css"));
             bundles.Add(new StyleBundle("~/Content/csspreview").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/preview.css"));

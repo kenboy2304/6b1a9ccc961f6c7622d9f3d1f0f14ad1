@@ -1,13 +1,31 @@
 ﻿<div id="slide-container">
 
 </div>
-<div></div>
 
 
 @section styles
 {
 
     <link href="@Url.Content("~/Content/ParallaxCSS.css")" rel="stylesheet" />
+    <style>
+        .grid-system {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 50px;
+            left: 0;
+            pointer-events: none;
+        }
+
+            .grid-system > table {
+                width: 100%;
+                height: 100%;
+            }
+
+                .grid-system > table td {
+                    border: 1px aquamarine solid;
+                }
+    </style>
 }
 
 @section scripts
@@ -25,6 +43,18 @@
         var slides = '@ViewBag.DataJson';
         fnOpen(slides);
 
+        $("#slide4").prepend("<div class='trigger'>trigger</div>");
+        $('.trigger').css({
+            color: "white",
+            "border-top": "1px green solid",
+            "border-bottom": "1px red solid",
+            position: "absolute",
+            right: 0,
+            top: 10,
+            width: 100,
+            "z-index": 79
+        });
+        $('.trigger').draggable({ axis: "y" }).resizable({ handles: "n, s" });
 
         //function Init()
         $(".sortable").sortable({
@@ -54,21 +84,42 @@
                 }
             }
         }).disableSelection();
+        $('body').prepend($('.logo'));
+        $('.logo').on("click", function () {
 
-        ////JQUERY ACTION
-        //var controller;
-        //$(document).ready(function ($) {
-        //    // init controller
-        //    controller = new ScrollMagic();
-        //    $(document).ready(function () {
-        //        // build scene
-        //        var scene = new ScrollScene({ triggerElement: "#slide2", duration: 300 })
-        //            .setTween(TweenMax.fromTo("#layer2", 1, { "top": "-340px", rotation: 360 }, { "top": "100px", rotation: 0 }))
-        //    //.setPin("#layer2")
-        //    .addTo(controller);
-        //    });
+            var $navbar = $('.navbar');
+            if ($navbar.is(':hidden')) {
+                $('.p-controller,.navbar').fadeIn(500);
+                TweenMax.to('body', 1, { "padding-top": 50, ease: Linear.easeNone });
+            }
+            else {
+                $('.p-controller,.navbar').fadeOut(500);
+                TweenMax.to('body',1,{"padding-top":0, ease: Linear.easeNone});
+            }
+        });
+        $('.grid-btn').on("click", function () {
+            if ($('.grid-system').is(":hidden")) {
+                $('.grid-system').fadeIn();
+            } else {
+                $('.grid-system').fadeOut();
+            }
+        });
+        $('.grid-block').on("blur", function () {
+            fnGridSystem();
+        });
 
-        //});
-
+        $('.grid-color').colpick({
+            colorScheme: 'dark',
+            layout: 'hex',
+            color: '7FFFD4',
+            submit: 0,
+            onChange: function (hsb, hex, rgb, el, bySetColor) {
+                $(el).css('background-color', '#' + hex);
+                $('.grid-system table td').css('border-color', '#' + hex);
+                if (!bySetColor) $(el).val(hex);
+            }
+        }).keyup(function () {
+            $(this).colpickSetColor(this.value);
+        });
     </script>
 }
