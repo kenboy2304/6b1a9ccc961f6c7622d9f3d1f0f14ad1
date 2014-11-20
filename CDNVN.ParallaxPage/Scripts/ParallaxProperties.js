@@ -29,7 +29,7 @@ ParallaxProperties.prototype.Set = function (elm, css) {
 };
 ParallaxProperties.prototype.OpenPopup = function (elm) {
     if ($(elm).attr("id") == undefined) {
-        //alert("Vui lòng tạo/chọn slide");
+        alert("Vui lòng tạo/chọn slide");
         return false;
     };
 

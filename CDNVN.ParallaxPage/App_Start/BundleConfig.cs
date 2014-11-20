@@ -33,6 +33,8 @@ namespace CDNVN.ParallaxPage
             bundles.Add(new StyleBundle("~/Content/csspreview").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/preview.css"));
+            bundles.Add(new StyleBundle("~/Content/bootstrap").Include(
+                      "~/Content/bootstrap.css"));
             bundles.Add(new ScriptBundle("~/Content/jqueryui").Include(
             "~/Content/jquery-ui.css"));
         }

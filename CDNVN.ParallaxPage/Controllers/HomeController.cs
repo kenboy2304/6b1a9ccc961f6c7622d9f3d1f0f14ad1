@@ -21,13 +21,17 @@ namespace CDNVN.ParallaxPage.Controllers
 
             return View();
         }
-        public ActionResult ParallaxSlideEditor()
+        public ActionResult ParallaxSlideEditor(int id)
         {
-            ViewBag.Message = "Your application description page.";
-
+            if (id != 0) ViewBag.DataJson = db.Presentations.Find(id).JsonSlide;
             return View();
         }
         public ActionResult ParallaxProperties()
+        {
+
+            return View();
+        }
+        public ActionResult ParallaxAnimation()
         {
 
             return View();

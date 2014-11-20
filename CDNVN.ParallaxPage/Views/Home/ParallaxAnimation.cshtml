@@ -1,0 +1,81 @@
+﻿@{
+    Layout = null;
+    var type = Request.QueryString["type"];
+}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Parallax Animation</title>
+    @Styles.Render("~/Content/bootstrap")
+
+    <link href="@Url.Content("~/Content/ParallaxAnimation.css")" rel="stylesheet" />
+    <style>
+    </style>
+</head>
+<body>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    <script src="@Url.Content("~/Scripts/StringPropetype.js")"></script>
+    <script src="@Url.Content("~/Scripts/ParallaxAnimation.js")"></script>
+    @*<script src="@Url.Content("http://bgrins.github.io/spectrum/spectrum.js")"></script>*@
+    @*<script src="@Url.Content("~/Content/Plugins/Colpick/js/colpick.js")"></script>*@
+    @*<script src="@Url.Content("~/Scripts/StringPropetype.js")"></script>*@
+
+    <script>
+        var a = new ParallaxAnimation();
+        function AnimationHTML(obj, name, type) {
+            var animation = obj;
+            var html = "<ul>";
+            if (name == undefined) name = "";
+            if (type == undefined) {
+                for (x in animation) {
+                    if (!isFunction(animation[x])) {
+
+                        if (isObject(animation[x])) {
+                            html += "<li><a>" + x.addSpaceBeforeCapitalLetters() + "</a>";
+                            html += AnimationHTML(animation[x], (name == "") ? x : name + "." + x);
+                            html += "</li>";
+                        } else {
+                            if (isString(animation[x])) {
+                                html += "<li><a href='" + name + "." + x + "'>" + animation[x] + "</a></li>";
+                            }
+                        }
+                    }
+                }
+            } else {
+                if (!isFunction(animation[type])) {
+
+                    if (isObject(animation[type])) {
+                        html += "<li><a>" + type.addSpaceBeforeCapitalLetters() + "</a>";
+                        html += AnimationHTML(animation[type], (name == "") ? type : name + "." + type);
+                        html += "</li>";
+                    }
+                }
+            }
+            html += "</ul>";
+            return html;
+        };
+
+        function ReturnValue(animation) {
+            var elm = '@Request.QueryString["element"]';
+            alert(elm);
+            window.opener.setAnimation(elm, animation);
+        }
+
+        $(function () {
+            $('body').append("<div class='animation'>" +
+                AnimationHTML(a) +
+                "</div>");
+            $('body').delegate("a[href]", "click", function () {
+                var animation = {
+                    name: $(this).text(),
+                    value: $(this).attr("href")
+                };
+                ReturnValue(animation);
+                return false;
+            });
+        });
+    </script>
+</body>
+</html>

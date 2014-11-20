@@ -3,6 +3,12 @@
     position: relative;
     padding: 0;
     padding-top: 50px;
+    width: 100%;
+}
+
+#slide-container {
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 ol, ul, li {
@@ -85,7 +91,9 @@ input[type="checkbox"] {
     .navbar .container {
         float: left;
         height: 48px;
-        margin-left: 210px;
+        margin-left: 205px;
+        max-width: 100%;
+        font-size: 11px;
     }
 
         .navbar .container ul {
@@ -93,20 +101,20 @@ input[type="checkbox"] {
             padding: 0;
             height: 100%;
             float: left;
-            padding: 0 5px;
         }
 
         .navbar .container input {
             text-align: center;
         }
 
-
-
-
         .navbar .container li {
             float: left;
-            padding: 12px 0;
+            padding: 12px 0 12px 6px;
         }
+
+            .navbar .container li .bold {
+                font-weight: 700;
+            }
 
             .navbar .container li span, .navbar .container li .btn {
                 padding: 5px;
@@ -115,7 +123,8 @@ input[type="checkbox"] {
             }
 
             .navbar .container li span {
-                padding: 0 2px;
+                padding: 0 0 0 2px;
+                cursor: default;
             }
 
             .navbar .container li .grid-color {
@@ -123,8 +132,8 @@ input[type="checkbox"] {
             }
 
             .navbar .container li button {
-                font-size: 12px;
-                margin-left: 10px;
+                font-size: 10px;
+                cursor: default;
             }
 
 #parallax-controller {
@@ -173,7 +182,7 @@ input[type="checkbox"] {
     #parallax-controller .sortable {
         padding: 5px 0 10px 0;
         margin: 0;
-        max-height: 200px;
+        max-height: 400px;
         overflow: auto;
     }
 
@@ -325,38 +334,140 @@ input[type="checkbox"] {
     top: 200px;
     left: 200px;
     z-index: 1;
+}
+
+.ui-rotatable-handle {
+    display: none;
+    z-index: 91;
+    margin: 0 auto;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -22px;
+}
+
+.layer .layer-name {
+    position: absolute !important;
+    right: 0;
+    top: -19px;
+    padding: 0 5px;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    background: #CCCEDB;
+    text-shadow: none;
+}
+
+.layer.active {
+    z-index: 80 !important;
+}
+
+    .layer.active .ui-rotatable-handle {
+        display: block;
+    }
+
+    .layer.active > .layer-name {
+        background: #0a0a0a;
+        color: white;
+    }
+    .layer.active .trigger {
+        display: block !important;
+    }
+
+.layer > .overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 89;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
     border: 1px #7f7f7f dashed;
 }
 
-    .layer .layer-name {
-        position: absolute !important;
-        right: 0;
-        top: -19px;
-        padding: 0 5px;
-        max-width: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: block;
-        background: #CCCEDB;
-        text-shadow: none;
+.layer.active > .overlay {
+    border: 1px #000 solid;
+    box-shadow: 0px 0px 5px #000;
+}
+.layer.hide-animation .trigger {
+    visibility: hidden;
+}
+.layer.hide-animation:before {
+    font-family: 'Glyphicons Halflings';
+    content: "\e006";
+    padding:0 5px;
+    font-size: 10px;
+    position: absolute;
+    color: #e8b76a;
+    left: -18px;
+}
+.layer.active:before {
+    display: none;
+}
+.layer.active .trigger {
+    visibility: visible;
+}
+
+.trigger {
+    font-size: 10px;
+    position: absolute !important;
+    width: 150px;
+    height: 100%;
+    top: 0;
+    border-top: 1px green solid;
+    border-bottom: 1px red solid;
+}
+
+.trigger-active {
+    font-weight: 700;
+    background: #000000;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+
+.trigger.Entrance {
+    border-color: #68A490;
+}
+
+.trigger.Emphasis {
+    border-color: #E8B76A;
+}
+
+.trigger.Exit {
+    border-color: #D65532;
+}
+
+.trigger-active span.auto, .trigger-active span.repeat {
+    font-weight: 400;
+    color: white !important;
+}
+
+.trigger-active.Entrance > span {
+    color: #68A490;
+}
+
+.trigger-active.Emphasis > span {
+    color: #E8B76A;
+}
+
+.trigger-active.Exit > span {
+    color: #D65532;
+}
+
+.trigger > span {
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+    .trigger > span:first-of-type {
     }
 
-    .layer.active {
-        border-style: solid;
-        box-shadow: 0 0 5px;
-    }
-
-        .layer.active > .layer-name {
-            background: #0a0a0a;
-            color: white;
-        }
-
-    .layer > .overlay {
+    .trigger > span:last-of-type {
         position: absolute;
-        width: 100%;
-        height: 100%;
-        z-index: 89;
-        top: 0;
-        left: 0;
+        bottom: 0;
     }

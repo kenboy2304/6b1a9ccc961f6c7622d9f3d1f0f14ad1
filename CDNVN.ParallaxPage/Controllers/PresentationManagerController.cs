@@ -108,6 +108,7 @@ namespace CDNVN.ParallaxPage.Controllers
             return Json(new {Message="Đã cập nhật thành công"},JsonRequestBehavior.AllowGet);
         }
 
+
         // GET: /PresentationManager/Delete/5
         public ActionResult Delete(int? id)
         {

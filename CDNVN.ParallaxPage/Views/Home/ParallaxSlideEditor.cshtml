@@ -16,16 +16,48 @@
     <script src="@Url.Content("~/Scripts/ParallaxAnimation.js")"></script>
     <script src="@Url.Content("~/Scripts/parllaxJS_OOP.js")"></script>
     <script type="text/javascript">
-        var p = new ParallaxScroller('@Url.Action("ParallaxProperties")');
-        p.InitProperties('@Url.Content("~/Scripts/ParallaxProperties.js")', '@Url.Action("ParallaxProperties")');
-        p.InitAnimation('@Url.Content("~/Scripts/ParallaxAnimation.js")');
-        $(function () {
 
+        var pId = '@(Url.RequestContext.RouteData.Values["id"] ?? Request.QueryString["id"])';
+        var pUrl = '@Url.Action("JsonEdit", "PresentationManager")';
+
+        var p = new ParallaxScroller('@Url.Action("ParallaxProperties")');
+        p.LoadPropertyScript('@Url.Content("~/Scripts/ParallaxProperties.js")', '@Url.Action("ParallaxProperties")');
+        p.LoadAnimationScript('@Url.Content("~/Scripts/ParallaxAnimation.js")',
+                                                '@Url.Action("ParallaxAnimation")',
+                                                    "#animation-duration",
+                                                    "#animation-start",
+                                                    "#animation-repeat",
+                                                    "#animation-auto",
+                                                    "#animation-tools .btn-delete");
+        $(function () {
             p.InitLayer("#layer-controller", '@Url.Action("LayerEditor")');
-            p.LayerButtons({ Text: ".create-layer-text", Image: ".create-layer-image", IFrame: ".create-layer-iframe" }, "#layer-tools .btn-delete", "#layer-tools .btn-properties", "#layer-tools .btn-animation");
-            p.ControlLayer();
+            p.LayerButtons({ Text: ".create-layer-text", Image: ".create-layer-image", IFrame: ".create-layer-iframe" },
+                            "#layer-tools .btn-delete",
+                            "#layer-tools .btn-properties",
+                            "#layer-tools .btn-animation",
+                            {
+                                Width: "#layer-width",
+                                Height: "#layer-height",
+                                Top: "#layer-top",
+                                Left: "#layer-left" 
+                            }
+            );
+            
             p.InitSlide("#slide-controller", "#slide-wrapper");
-            p.SlideButtons("#slide-tools .btn-create", "#slide-tools .btn-delete", "#slide-tools .btn-properties", '.slide-width', '.slide-height');
+            p.SlideButtons("#slide-tools .btn-create",
+                            "#slide-tools .btn-delete",
+                            "#slide-tools .btn-properties",
+                            "#slide-tools .btn-animation",
+                            '#slide-width',
+                            '#slide-height');
+            
+            
+            $('.btn-save').on("click", function () {
+                p.Save(pId,pUrl);
+            });
+            var slides = '@ViewBag.DataJson';
+            p.Open(slides);
+            p.ControlLayer();
             p.ControlSlide();
         });
 
@@ -35,6 +67,10 @@
 
         function setProperties(elm, css) {
             p.Properties.Set(elm, css);
+        }
+        
+        function setAnimation(elm, animation) {
+            p.Animation.Set(elm, animation);
         }
     </script>
 }

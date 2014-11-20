@@ -1,9 +1,29 @@
 ﻿
 $(function () {
+    $("#layer-tools .btn-showname").on("click", function () {
+        if ($(this).find("i").hasClass('glyphicon-eye-open')) {
+            $(this).find("i").removeClass("glyphicon-eye-open").addClass("glyphicon-eye-close");
+            $('.layer-name').hide();
+        } else {
+            $(this).find("i").removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
+            $('.layer-name').show();
+        }
+        return false;
+    });
+    $("#animation-tools .btn-showname").on("click", function () {
+        if ($(this).find("i").hasClass('glyphicon-eye-open')) {
+            $(this).find("i").removeClass("glyphicon-eye-open").addClass("glyphicon-eye-close");
+            $('.trigger').parent().addClass("hide-animation");
+        } else {
+            $(this).find("i").removeClass("glyphicon-eye-close").addClass("glyphicon-eye-open");
+            $('.trigger').parent().removeClass("hide-animation");
+        }
+        return false;
+    });
 
     //SET DRAGABLE CONTROLLER, TOOLS
     $('.tabs').tabs();
-    $('.sortable').sortable({ axis: "y", cursor: "move"});
+    $('.sortable').sortable({ axis: "y", cursor: "move" });
     //$('#parallax-controller').resizable({ handles: "s", alsoResize: '.sortable' });
 
     $('#parallax-controller, #parallax-tools').draggable({ handle: ".move" });
@@ -19,7 +39,7 @@ $(function () {
         }
         $dl.slideToggle(300);
     });
-    
+
     //NAVBAR
 
     $('.logo').on("click", function () {
@@ -100,138 +120,11 @@ $(function () {
     $('.grid-fixed').on("click", function () {
         var top = document.body.scrollTop;
         if ($(this).is(":checked")) {
-            $('#parallax-gridviews').css({ position: "absolute", top: top + 50});
+            $('#parallax-gridviews').css({ position: "absolute", top: top + 50 });
         } else {
-            $('#parallax-gridviews').css({ position: "fixed", top :50});;
+            $('#parallax-gridviews').css({ position: "fixed", top: 50 });;
         }
     });
-    
 
-    //SLIDE
-    
-    //JS active slide;
-    //$('body').delegate(".slide,[data-slide]", "click resizestart resize resizestop", function () {
-    //    var goto = $(this).data("slide");
-    //    var slideId = $(this).attr("id") ? $(this).attr("id") : $(this).data("slide");
-    //    var s = new ParallaxSlide();
-    //    s.SetActive(slideId);
-    //    if (goto != undefined) s.Goto(slideId);
-    //    var height = $(slideId.JqueryId()).height();
-    //    var width = $(slideId.JqueryId()).width();
-
-    //    $('.slide-height').val(height);
-    //    $('.slide-width').val(width);
-    //});
-
-    //$('.slide-height,.slide-width').on("keyup keydown blur", function () {
-
-    //    var slide = new ParallaxSlide().GetActive();
-    //    var height = $('.slide-height').val();
-    //    height++;
-    //    if (height != "")
-    //        $(slide).stop().animate({ height: height }, 500);
-
-    //});
 
 });
-
-
-
-////JS SELECT LAYER
-////click layer
-//$("body").delegate(".slide .layer", "click", function () {
-//    objPLayer.CurentId = $(this).attr("id");
-//    fnLayerActive(elementID(objPLayer.CurentId));
-//    return false;
-//});
-
-////JS drag layer
-//$('body').delegate(".layer", "dragstart", function () {
-//    fnLayerActive(elementID($(this).attr("id")));
-//});
-//$('body').delegate(".layer", "resizestart", function () {
-//    fnLayerActive(elementID($(this).attr("id")));
-//});
-
-////JS select layer controller
-//$(objPLayer.ControllerId).delegate(".sortable-item a", "click", function () {
-//    fnLayerActive($(this).data("layer"));
-//    return false;
-//});
-
-////JS CRUP
-////JS EDIT LAYER
-//$("body").delegate(".layer", "dblclick", function () {
-//    var type = $(this).data("type");
-//    objPLayer.CurentId = $(this).attr("id");
-//    var value = "";
-//    if (type == objPLayer.Type.Text || type == objPLayer.Type.Header) {
-//        value = $(this).find(".layer-content").html();
-//    } else if (type == objPLayer.Type.Image) {
-//        value = $(this).find('img').attr("src");
-//    }
-//    fnLayerEditor($(this).data("type"), value);
-//    return false;
-//});
-
-////JS CREATE LAYER
-//$('.btn-create').on("click", function () {
-//    var type = $(this).data("type");
-//    fnLayerInsert(type);
-//    return false;
-//});
-
-////JS DELETE LAYER
-//$('.btn-del').on("click", function () {
-//    var del = confirm("Bạn chắc chắn muốn xóa layer?");
-//    if (del) {
-//        $('.slide').find('.active').remove();
-//        $(elementID(objPLayer.ControllerId)).find('.active').remove();
-
-//    }
-//    return false;
-
-//});
-
-////GENARAL
-
-//$('.btn-slide-properties').on("click", function () {
-//    var objActives = objPSlide.Actives();
-//    if ($(objActives).length <= 0) alert("Vui lòng chọn/tạo slide");
-//    else {
-//        fnProperties(".slide.active");
-//    }
-//    return false;
-//});
-
-//$('.btn-layer-properties').on("click", function () {
-//    var objActives = elementID(objPLayer.ActiveId());
-//    if ($(objActives).length <= 0) alert("Vui lòng chọn/tạo layer");
-//    else {
-//        fnProperties(".layer.active");
-//    }
-//    return false;
-//});
-
-////JQUERY ACTIVE
-//$('body').delegate(".slide", "click", function () {
-//    var strSlideId = $(this).attr("id");
-//    fnSlideActive(strSlideId);
-//});
-
-//$('body').delegate(objPSlide.ControllerId + " .sortable-item a", "click", function () {
-//    fnSlideActive($(this).data("slide"));
-//    fnSlideGoTo($(this).data("slide"));
-//});
-
-////JS LAYER 
-
-////JS RENAMELAYER
-//$(objPLayer.ControllerId).delegate(".sortable-item a", "dblclick", function () {
-//    var name = prompt("Please enter your name", $(this).text());
-
-//    if (name != null) {
-//        setLayerName($(this).data("layer"), name, true);
-//    }
-//    return false;
-//});

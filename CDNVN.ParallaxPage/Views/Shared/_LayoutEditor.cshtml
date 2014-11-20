@@ -11,17 +11,12 @@
 
     @Scripts.Render("~/bundles/modernizr")
     <link href="@Url.Content("~/Content/Plugins/Colpick/css/colpick.css")" rel="stylesheet" />
+    <link href="http://godswearhats.com/jquery-ui-rotatable/jquery.ui.rotatable.css" rel="stylesheet" />
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet" />
     
     @RenderSection("styles", required: false)
 
-
-    <script type="text/javascript" src="http://janpaepke.github.io/ScrollMagic/js/_dependent/greensock/TweenMax.min.js"></script>
-    <script type="text/javascript" src="http://janpaepke.github.io/ScrollMagic/js/_dependent/greensock/plugins/ScrollToPlugin.min.js"></script>
-
     @Scripts.Render("~/bundles/jquery")
-    <script type="text/javascript" src="http://janpaepke.github.io/ScrollMagic/js/_mobile/iscroll-probe.js"></script>
-    <script type="text/javascript" src="http://janpaepke.github.io/ScrollMagic/js/jquery.scrollmagic.min.js"></script>
 
 </head>
     <body>
@@ -37,8 +32,10 @@
        
         @Scripts.Render("~/bundles/jqueryui")
         @Scripts.Render("~/bundles/bootstrap")
-        @*<script type="text/javascript" src="@Url.Content("~/Scripts/parllaxJS-tools.js")"></script>*@
+        <script src="http://godswearhats.com/jquery-ui-rotatable/jquery.ui.rotatable.min.js"></script>    
+    @*<script type="text/javascript" src="@Url.Content("~/Scripts/parllaxJS-tools.js")"></script>*@
         <script src="@Url.Content("~/Content/Plugins/Colpick/js/colpick.js")"></script>
+        
         @RenderSection("scripts", required: false)
     </body>
 </html>

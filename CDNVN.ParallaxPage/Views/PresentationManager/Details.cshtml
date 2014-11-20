@@ -5,15 +5,34 @@
     ViewBag.Title = "Details";
     Layout = "../Shared/_LayoutPreview.cshtml";
     dynamic slides = JsonConvert.DeserializeObject(HttpUtility.UrlDecode(Model.JsonSlide));
+    var animation = "";
+    var style = "";
+
 }
+
 @foreach (var slide in slides)
 {
-    <div class="slide" id="@slide["id"]" style="@slide["style"]">
+    <div class="slide" id="@slide["id"]">
         <div class="slide-container">
-            @{ var layers = slide["layers"]; }
+            @{
+    var layers = slide["layers"];
+    style += string.Format("#{0} {{ {1} }} ", slide["id"], slide["style"]);
+    var slideAnimations = slide["animations"];
+    foreach (var slideAnimation in slideAnimations)
+    {
+        animation += "parallax.Animation('#" + slide["id"] + "', '" + slideAnimation["name"] + "', " + slideAnimation["duration"] + ", " + slideAnimation["start"] + ", " + slideAnimation["repeat"] + ", " + slideAnimation["auto"].ToString().ToLower() + "); ";
+    }
+
+            }
             @foreach (var layer in layers)
             {
-                <div class="layer" id="@layer["id"]" style="@layer["style"]">
+                style += string.Format("#{0} {{ {1} }} ", layer["id"], layer["style"]);
+                var layerAnimations = layer["animations"];
+                foreach (var layerAnimation in layerAnimations)
+                {
+                    animation += "parallax.Animation('#" + layer["id"] + "', parallax." + layerAnimation["value"] + ", " + layerAnimation["duration"] + ", " + layerAnimation["start"] + ", " + layerAnimation["repeat"] + ", " + layerAnimation["auto"].ToString().ToLower() + "); ";
+                }
+                <div class="layer" id="@layer["id"]">
                     <div class="layer-container" style="width: 100%;height: 100%">
                         @Html.Raw(layer["content"])
                     </div>
@@ -22,108 +41,41 @@
         </div>
     </div>
 }
+@section styles
+{
+    <style>
+        .trigger {
+            position: absolute;
+            border-top: 1px green solid;
+            border-bottom: 1px red solid;
+            z-index: 1000;
+        }
+
+         @style
+         
+    </style>
+}
 @section scripts
 {
-
+<script src="@Url.Content("~/Scripts/StringPropetype.js")"></script>
     <script src="@Url.Content("~/Scripts/ParallaxAnimation.js")"></script>
     <script type="text/javascript">
 
-        
 
         $(function () {
-            TweenMax.set("#layer9", { left: $('#layer9').position().left - 50 });
-            TweenMax.to("#layer9",1, { left: $('#layer9').position().left + 100, repeat:-1,yoyo:true,ease:Linear.easeNone });
-            
-        //    $('.trigger').each(function () {
-        //        var top = $(this).next().position().top, left = $(this).next().position().left;
-        //        var height = $(this).next().height(), width = $(this).next().width();
-        //        $(this).css({
-        //            height: 1,
-        //           // background:"white",
-        //            width: width,
-        //            position: "absolute",
-        //            top: top+height/2,
-        //            left:left
-        //        });
-        //        $(this).find("div").css({                    
-        //           // background: "red",
-        //            height: 1,
-        //            position: "relative"
-        //        });
-        //    });
-            //var viewportHeight = $(window).height();
-            //$('.slide').height(viewportHeight);
-            
-            //DETAIL USER LIBRARY
-            //create obj Parallax Animation
             var parallax = new ParallaxAnimation();
-            
-            //after 
-            //Use parallax for slide
-            // Slide Parallax
-            // parallax.Parallax("slideId");
-            //parallax.Parallax("#slide1");
-            //parallax.Parallax("#slide2");
-            //parallax.Parallax("#slide3");
-            parallax.Parallax("#slide5");
-            parallax.Parallax("#slide6","panorama");
-            
-            //reviews
-            
-            //Use animation for layer in slide
-            //parallax.Animation("#slideWrapper","LayerId","animation in libray_Float In Left and Float In Right")
-            parallax.Animation("#layer2", parallax.Entrance.FloatIn.Left,300);
-            parallax.Animation("#layer1", parallax.Entrance.FloatIn.Right,300);
-            //review
-            
-            //Use Pin Layer
-            //pin("slideId","layerId","offset","through 1 slide")
-            
-            //okie
-            
-            //animation have pin
-            //Zoom In
-            parallax.Pin("#layer3", 0, 650);
-            parallax.Animation("#layer3", parallax.Entrance.ZoomIn.Default);
-            parallax.Animation("#layer3", parallax.Exit.FadeOut.Default,300,650+$('#layer3').height()*2);
-            
-            // Entrance have pin ~ Entrance hadnt pin
-            //Out
-            //parallax.Animation("#layer3", parallax.Exit.FadeOut.Default, 1);
-            //Out have through Slide
-            //.Animation("slideId","layerId","animation","through")
-
-            //SLIDE 3
-            parallax.Animation("#layer4", parallax.Entrance.FadeIn.Default);
-            parallax.Animation("#layer5", parallax.Entrance.FloatIn.Top);
-            parallax.Animation("#layer4", parallax.Exit.FadeOut.Default, 300,500);
-            parallax.Animation("#layer5", parallax.Exit.FadeOut.Default, 300, 500);
-
-            //SLIDE 4
-            //DEMO PARALLAX LAYER
-            parallax.Animation("#layer8", parallax.Emphasis.Parallax.Bottom);
-            //demo anmation slide
-            //parallax.Animation("#slide5", "#slide5", parallax.Exit.FadeOut.Default, 0);
-            
-
-            
-            parallax.Animation("#layer11", parallax.Entrance.FlyIn.Right, 500, 1000);
-            parallax.Animation("#layer12", parallax.Entrance.FadeIn.Default, 500, 2000);
-            parallax.Pin("#layer10", 0, 7000);
-            parallax.Pin("#layer11", 0, 7000);
-            parallax.Pin("#layer12", 0, 7000);
-            
-
+            parallax.InitScroll();
+            @Html.Raw(animation);
         });
+
 
         $(function () {
             $('.slide').on("click", function () {
-                if ($(this).is(":last-child")) {
-                    $('body').animate({ scrollTop: $(this).offset().top + $(this).height() }, 5000);
+                if ($(this).is(":last-of-type")) {
+                    $('body').animate({ scrollTop: 0 }, $('body').height() * 5, "linear");
                 } else {
-                    $('body').animate({ scrollTop: $(this).next().offset().top }, 3000);
+                    $('body').animate({ scrollTop: $(this).next().offset().top + $(this).next().height() - $(window).height() }, $(this).next().height() * 5, "linear");
                 }
-                
             });
         });
     </script>

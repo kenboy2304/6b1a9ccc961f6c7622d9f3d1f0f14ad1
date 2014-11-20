@@ -18,6 +18,9 @@
             width: 100%;
             text-align: right;
         }
+        .cke_panel_listItem a span {
+            font-size: 14px !important;
+        }
     </style>
 </head>
 <body>
@@ -51,6 +54,21 @@
 
     <script type="text/javascript">
         var ckeditor;
+        
+        function GetFontSize(min, max) {
+            var rs = "";
+            var x = 2, y = 3;
+            var plus = 1;
+            for (var i = 1; i <= max; i += plus) {
+                rs += i + "/" + i + "px;";
+                if (i >= min && i >= (x * y) && i % (plus + 2) == 0) {
+                    plus = plus % 2 != 0 ? plus = 2 : plus + 2;
+                    x += 2; y += 2;
+                }
+            }
+            return  rs.slice(0, rs.length - 1);
+        }
+
         function InsertValue(value) {
             if (value != "" && value != undefined) {
                 if (type == "Image") {
@@ -62,15 +80,17 @@
             if (type == "Text") {
                 ckeditor = CKEDITOR.replace('Text', {
                     toolbar: [
-                        { name: 'document', items: ['Source'] },	// Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
+                        { name: 'document', items: ['Source'] }, // Defines toolbar group with name (used to create voice label) and items in 3 subgroups.
                         ['Undo', 'Redo'], // Defines toolbar group without name.
                         { name: 'basicstyles', groups: ['basicstyles', 'cleanup'], items: ['Bold', 'Italic', 'Underline'] },
                         { name: 'paragraph', items: ['JustifyLeft', 'JustifyCenter', 'JustifyRight'] },
                         "/",
                         { name: 'styles', items: ['Format', 'Font', 'FontSize'] },
                         { name: 'colors', items: ['TextColor', 'BGColor'] }
-                    ]
-                });
+                    ],
+                    fontSize_sizes: GetFontSize(12, 150)
+            });
+                
             }
 
         }

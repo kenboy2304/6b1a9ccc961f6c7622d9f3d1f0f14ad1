@@ -54,6 +54,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.JsonSlide)
                 @Html.ValidationMessageFor(model => model.JsonSlide)
+                @HttpUtility.UrlDecode(Model.JsonSlide)
             </div>
         </div>
 

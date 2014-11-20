@@ -22,37 +22,50 @@
     <div class="container">
         <ul>
             <li>
-                <span>Grid:</span>
+                <span class="bold">Grid:</span>
                 <input type="text" class="grid-cols" name="grid-cols" style="width: 30px" placeholder="C" />
                 <input type="text" class="grid-rows" name="grid-rows" style="width: 30px" placeholder="R" />
                 <input type="text" class="grid-color" name="grid-rows" style="width: 30px; background: #7FFFD4; " value="7FFFD4" />
-                
-                <input type="checkbox" class="grid-fixed" name="grid-fixed"/>
+
+                <input type="checkbox" class="grid-fixed" name="grid-fixed" />
                 <span>Fixed</span>
                 <button class="grid-btn">Ẩn/hiện</button>
             </li>
         </ul>
         <ul>
             <li>
-                <span>Slide:</span>
-                <input type="text" class="slide-width" name="slide-width" style="width: 50px" placeholder="W" />
-                <span>x</span>
-                <input type="text" class="slide-height" name="slide-height" style="width: 50px" placeholder="H" />
+                <span class="bold">Slide:</span>
+                <span>W</span>
+                <input type="number" id="slide-width" class="parallax-size" name="slide-width" style="width: 50px" placeholder="W" />
+                <span>H</span>
+                <input type="number" id="slide-height" class="parallax-size" name="slide-height" style="width: 50px" placeholder="H" />
             </li>
             <li>
-                <span>Layer:</span>
-                <input type="text" class="layer-width" name="layer-width" style="width: 50px" placeholder="W" />
-                <span>x</span>
-                <input type="text" class="layer-height" name="layer-height" style="width: 50px" placeholder="H" />
-                <span>/</span>
-                <input type="text" class="layer-top" name="layer-top" style="width: 50px" placeholder="Top" />
-                <span>x</span>
-                <input type="text" class="layer-left" name="layer-left" style="width: 50px" placeholder="Left" />
+                <span class="bold">Layer:</span>
+                <span>W</span>
+                <input type="number" id="layer-width" class="parallax-size" name="layer-width" style="width: 50px" placeholder="W" />
+                <span>H</span>
+                <input type="number" id="layer-height" class="parallax-size" name="layer-height" style="width: 50px" placeholder="H" />
+                <span>T</span>
+                <input type="number" id="layer-top" class="parallax-size" name="layer-top" style="width: 50px" placeholder="Top" />
+                <span>L</span>
+                <input type="number" id="layer-left" class="parallax-size" name="layer-left" style="width: 50px" placeholder="Left" />
+            </li>
+            <li>
+                <span class="bold">Animation:</span>
+                <span>D</span>
+                <input type="number" id="animation-duration" class="parallax-size" name="animation-duration" style="width: 50px" placeholder="Dur" />
+                <span>S</span>
+                <input type="number" id="animation-start" class="parallax-size" name="animation-start" style="width: 50px" placeholder="Top" />
+                <span>R</span>
+                <input type="number" id="animation-repeat" class="parallax-size" name="animation-repeat" style="width: 50px" placeholder="Top" />
+                <input type="checkbox" id="animation-auto" class="parallax-checked" name="animation-auto" />
+                <span>Auto</span>
             </li>
         </ul>
         <ul>
             <li>
-                <a class="btn" href="" onclick="fnSave(); return false;"><i class="glyphicon glyphicon-floppy-disk"></i></a>
+                <a class="btn btn-save" onclick="return false;"><i class="glyphicon glyphicon-floppy-disk"></i></a>
             </li>
             <li>
                 <a class="btn btn-download">
@@ -132,6 +145,21 @@
             <li>
                 <a class="btn btn-delete" href="#">
                     <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </li>
+        </ul>
+    </dd>
+    <dt class=" background-color-2">Ani..<span class="glyphicon glyphicon-chevron-up"></span></dt>
+    <dd class="parallax-tools-group">
+        <ul id="animation-tools">
+            <li>
+                <a class="btn btn-delete" href="#">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>
+            </li>
+            <li>
+                <a class="btn btn-showname" href="#">
+                    <i class="glyphicon glyphicon-eye-open"></i>
                 </a>
             </li>
         </ul>
