@@ -1,5 +1,7 @@
 ﻿<!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,11 +10,10 @@
     @Styles.Render("~/Content/jqueryui")
     <!--<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css" />
         -->
-
     @Scripts.Render("~/bundles/modernizr")
     <link href="@Url.Content("~/Content/Plugins/Colpick/css/colpick.css")" rel="stylesheet" />
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet" />
-    
+
     @RenderSection("styles", required: false)
 
 
@@ -24,20 +25,20 @@
     <script type="text/javascript" src="http://janpaepke.github.io/ScrollMagic/js/jquery.scrollmagic.min.js"></script>
 
 </head>
-    <body>
-        <div class="">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - Parallax Editor</p>
-            </footer>
-        </div>
-        @Html.Partial("_PController");
-       
-        @Scripts.Render("~/bundles/jqueryui")
-        @Scripts.Render("~/bundles/bootstrap")
-        <script type="text/javascript" src="@Url.Content("~/Scripts/parllaxJS-tools.js")"></script>
-        <script src="@Url.Content("~/Content/Plugins/Colpick/js/colpick.js")"></script>
-        @RenderSection("scripts", required: false)
-    </body>
+<body>
+    <div class="">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - Parallax Editor</p>
+        </footer>
+    </div>
+    @Html.Partial("_PController");
+
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script type="text/javascript" src="@Url.Content("~/Scripts/parllaxJS-tools.js")"></script>
+    <script src="@Url.Content("~/Content/Plugins/Colpick/js/colpick.js")"></script>
+    @RenderSection("scripts", required: false)
+</body>
 </html>

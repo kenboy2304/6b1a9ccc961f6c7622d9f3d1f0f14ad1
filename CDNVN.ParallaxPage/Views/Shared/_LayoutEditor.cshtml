@@ -4,18 +4,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="@Url.Content("~/Content/jquery-ui.css")" rel="stylesheet" />
     @Styles.Render("~/Content/csseditor")
-    @Styles.Render("~/Content/jqueryui")
     <!--<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css" />
         -->
-
     @Scripts.Render("~/bundles/modernizr")
     <link href="@Url.Content("~/Content/Plugins/Colpick/css/colpick.css")" rel="stylesheet" />
     <link href="http://godswearhats.com/jquery-ui-rotatable/jquery.ui.rotatable.css" rel="stylesheet" />
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet" />
     
     @RenderSection("styles", required: false)
-
+    <link href="@Url.Content("~/Content/Plugins/menucontent/jquery.contextmenu.css")" rel="stylesheet" />
     @Scripts.Render("~/bundles/jquery")
 
 </head>
@@ -35,6 +34,7 @@
         <script src="http://godswearhats.com/jquery-ui-rotatable/jquery.ui.rotatable.min.js"></script>    
     @*<script type="text/javascript" src="@Url.Content("~/Scripts/parllaxJS-tools.js")"></script>*@
         <script src="@Url.Content("~/Content/Plugins/Colpick/js/colpick.js")"></script>
+        <script src="@Url.Content("~/Content/Plugins/menucontent/jquery.contextmenu.js")"></script>
         
         @RenderSection("scripts", required: false)
     </body>

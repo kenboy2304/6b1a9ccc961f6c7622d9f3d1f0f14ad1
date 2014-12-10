@@ -14,7 +14,7 @@ namespace CDNVN.ParallaxPage
     {
         protected void Application_Start()
         {
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ParallaxContext>());
+            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<ParallaxContext>());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

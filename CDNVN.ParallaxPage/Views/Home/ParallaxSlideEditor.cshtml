@@ -20,6 +20,7 @@
         var pId = '@(Url.RequestContext.RouteData.Values["id"] ?? Request.QueryString["id"])';
         var pUrl = '@Url.Action("JsonEdit", "PresentationManager")';
 
+
         var p = new ParallaxScroller('@Url.Action("ParallaxProperties")');
         p.LoadPropertyScript('@Url.Content("~/Scripts/ParallaxProperties.js")', '@Url.Action("ParallaxProperties")');
         p.LoadAnimationScript('@Url.Content("~/Scripts/ParallaxAnimation.js")',
@@ -28,32 +29,29 @@
                                                     "#animation-start",
                                                     "#animation-repeat",
                                                     "#animation-auto",
-                                                    "#animation-tools .btn-delete");
+                                                    "#animation-delay");
+
         $(function () {
             p.InitLayer("#layer-controller", '@Url.Action("LayerEditor")');
             p.LayerButtons({ Text: ".create-layer-text", Image: ".create-layer-image", IFrame: ".create-layer-iframe" },
-                            "#layer-tools .btn-delete",
-                            "#layer-tools .btn-properties",
                             "#layer-tools .btn-animation",
                             {
                                 Width: "#layer-width",
                                 Height: "#layer-height",
                                 Top: "#layer-top",
-                                Left: "#layer-left" 
+                                Left: "#layer-left"
                             }
             );
-            
+
             p.InitSlide("#slide-controller", "#slide-wrapper");
             p.SlideButtons("#slide-tools .btn-create",
-                            "#slide-tools .btn-delete",
-                            "#slide-tools .btn-properties",
                             "#slide-tools .btn-animation",
                             '#slide-width',
                             '#slide-height');
-            
-            
+
+
             $('.btn-save').on("click", function () {
-                p.Save(pId,pUrl);
+                p.Save(pId, pUrl);
             });
             var slides = '@ViewBag.DataJson';
             p.Open(slides);
@@ -68,7 +66,7 @@
         function setProperties(elm, css) {
             p.Properties.Set(elm, css);
         }
-        
+
         function setAnimation(elm, animation) {
             p.Animation.Set(elm, animation);
         }

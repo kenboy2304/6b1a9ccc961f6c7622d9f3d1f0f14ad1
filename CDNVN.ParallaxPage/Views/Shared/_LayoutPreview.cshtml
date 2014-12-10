@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Previews</title>
+    <title>@ViewBag.Title - CDNVN Parallax Page</title>
+    @Html.Raw(ViewBag.Meta)
     <link rel="stylesheet" href="http://www.gayadesign.com/scripts/queryLoader/css/queryLoader.css" type="text/css" />
 
     @Styles.Render("~/Content/csspreview")
@@ -19,11 +20,12 @@
     
 </head>
     <body>
-        <div class="container">
+        <div class="parallax-container">
             @RenderBody()
         </div>
         @Scripts.Render("~/bundles/jqueryui")
         @Scripts.Render("~/bundles/bootstrap")
+
         @RenderSection("scripts", required: false)
     
     </body>

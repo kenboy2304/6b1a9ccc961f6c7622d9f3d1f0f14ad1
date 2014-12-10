@@ -48,6 +48,11 @@ textarea {
     max-width: 280px;
 }
 
+#trigger-container {
+    position: relative;
+    width: 100%;
+    pointer-events: none;
+}
 /* styles for validation helpers */
 .field-validation-error {
     color: #b94a48;

@@ -2,8 +2,33 @@
 
 @{
     ViewBag.Title = "Error";
+    Layout = null;
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link href="@Url.Content("~/Content/bootstrap.css")" rel="stylesheet" />
+    <style>
+        body {
+            background: url("@Url.Content("~/Content/Images/bg1.png")");
+            text-align: center;
+            padding: 5%;
+        }
+        img {
+            margin: auto;
+        }
+    </style>
+</head>
+    <body>
+        <img src="@Url.Content("~/Content/Images/error-img.png")" alt="Alternate Text" class="img-responsive" />
+        <h1 class="text-danger">An error occurred while processing your request.</h1>
+
+    </body>
+</html>
+
+
+
 

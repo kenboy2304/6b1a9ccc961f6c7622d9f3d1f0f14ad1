@@ -13,27 +13,19 @@
 
 @foreach (var slide in slides)
 {
-    if (slide["hidden"].ToString() == "True")
-    {
-        continue;
-    }
     <div class="slide" id="@slide["id"]">
         <div class="slide-container">
             @{
-                var layers = slide["layers"];
-                style += string.Format("#{0} {{ {1} }} ", slide["id"], slide["style"]);
-                var slideAnimations = slide["animations"];
-                foreach (var slideAnimation in slideAnimations)
-                {
-                    animation += string.Format("{{ id:\"#{0}\", animation:parallax.{1}, duration:{2}, start:{3}, repeat:{4}, auto:{5}, delay:{6} }},", slide["id"], slideAnimation["value"], slideAnimation["duration"], slideAnimation["start"], slideAnimation["repeat"], slideAnimation["auto"].ToString().ToLower(), slideAnimation["delay"]);
-                }
+    var layers = slide["layers"];
+    style += string.Format("#{0} {{ {1} }} ", slide["id"], slide["style"]);
+    var slideAnimations = slide["animations"];
+    foreach (var slideAnimation in slideAnimations)
+    {
+        animation += string.Format("{{ id:\"#{0}\", animation:parallax.{1}, duration:{2}, start:{3}, repeat:{4}, auto:{5}, delay:{6} }},", slide["id"], slideAnimation["value"], slideAnimation["duration"], slideAnimation["start"], slideAnimation["repeat"], slideAnimation["auto"].ToString().ToLower(), slideAnimation["delay"]);
+    }
             }
             @foreach (var layer in layers)
             {
-                if (layer["hidden"].ToString() == "True")
-                {
-                    continue;
-                }
                 style += string.Format("#{0} {{ {1} }} ", layer["id"], layer["style"]);
                 var layerAnimations = layer["animations"];
                 foreach (var layerAnimation in layerAnimations)
@@ -42,7 +34,7 @@
                     animation += string.Format("{{ id:\"#{0}\", animation:parallax.{1}, duration:{2}, start:{3}, repeat:{4}, auto:{5}, delay:{6} }},", layer["id"], layerAnimation["value"], layerAnimation["duration"], layerAnimation["start"], layerAnimation["repeat"], layerAnimation["auto"].ToString().ToLower(), layerAnimation["delay"]);
                 }
                 <div class="layer" id="@layer["id"]">
-                    <div class="layer-container" style="width: 100%; height: 100%">
+                    <div class="layer-container" style="width: 100%;height: 100%">
                         @Html.Raw(layer["content"])
                     </div>
                 </div>
@@ -52,13 +44,14 @@
 }
 
 @{
-        animation = animation.Substring(0, animation.Length - 1) + "];";
-    }
+    animation = animation.Substring(0, animation.Length - 1) + "];";
+}
 
-    @section styles
+@section styles
     {
-        <style>
+    <style>
             .trigger {
+                visibility: hidden;
                 position: absolute;
                 border-top: 1px green solid;
                 border-bottom: 1px red solid;
@@ -70,13 +63,13 @@
                 overflow: hidden;
             }
             @style
-        </style>
-    }
-    @section scripts
+    </style>
+}
+@section scripts
     {
-        <script src="@Url.Content("~/Scripts/StringPropetype.js")"></script>
-        <script src="@Url.Content("~/Scripts/ParallaxAnimation.js")"></script>
-        <script type="text/javascript">
+    <script src="@Url.Content("~/Scripts/StringPropetype.js")"></script>
+    <script src="@Url.Content("~/Scripts/ParallaxAnimation.js")"></script>
+    <script type="text/javascript">
 
             var parallax = new ParallaxAnimation();
             parallax.InitScroll();
@@ -122,14 +115,14 @@
             });
 
             $(function() {
-                //$('.slide').on("click", function() {
-                //    if ($(this).is(":last-of-type")) {
-                //        $('body').animate({ scrollTop: 0 }, $('body').height() * 5, "linear");
-                //    } else {
-                //        $('body').animate({ scrollTop: $(this).next().offset().top + $(this).next().height() - $(window).height() }, $(this).next().height() * 5, "linear");
-                //    }
-                //});
+                $('.slide').on("click", function() {
+                    if ($(this).is(":last-of-type")) {
+                        $('body').animate({ scrollTop: 0 }, $('body').height() * 5, "linear");
+                    } else {
+                        $('body').animate({ scrollTop: $(this).next().offset().top + $(this).next().height() - $(window).height() }, $(this).next().height() * 5, "linear");
+                    }
+                });
             });
-        </script>
-    }
+    </script>
+}
 

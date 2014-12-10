@@ -36,6 +36,20 @@ namespace CDNVN.ParallaxPage.Controllers
             return View(presentation);
         }
 
+        public ActionResult Previews(string keyword)
+        {
+            if (string.IsNullOrEmpty(keyword))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Presentation presentation = db.Presentations.Single(p => p.SeoKeyWord.Equals(keyword));
+            if (presentation == null)
+            {
+                return HttpNotFound();
+            }
+            return View(presentation);
+        }
+
         // GET: /PresentationManager/Create
         public ActionResult Create()
         {

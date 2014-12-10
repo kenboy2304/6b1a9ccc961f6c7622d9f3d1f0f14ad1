@@ -1,5 +1,11 @@
 ﻿
 $(function () {
+
+    $("#parallax-controller .sortable").scroll(function(e) {
+        e.stopPropagation();
+    });
+
+    $('[data-toggle="tooltip"]').tooltip();
     $("#layer-tools .btn-showname").on("click", function () {
         if ($(this).find("i").hasClass('glyphicon-eye-open')) {
             $(this).find("i").removeClass("glyphicon-eye-open").addClass("glyphicon-eye-close");
@@ -26,7 +32,7 @@ $(function () {
     $('.sortable').sortable({ axis: "y", cursor: "move" });
     //$('#parallax-controller').resizable({ handles: "s", alsoResize: '.sortable' });
 
-    $('#parallax-controller, #parallax-tools').draggable({ handle: ".move" });
+    $('#parallax-controller,#parallax-controller2, #parallax-tools').draggable({ handle: ".move" });
 
     //HIDE ITEMS TOOLS
     $("#parallax-tools dt span").on("click", function () {
@@ -44,7 +50,7 @@ $(function () {
 
     $('.logo').on("click", function () {
         if (!$('#parallax-navbar').is(":hidden")) {
-            $(this).animate({ left: "-188px", opacity: 0.4 }, 500)
+            $(this).animate({ left: "-160px", opacity: 0.4 }, 500)
                 .find('.glyphicon-chevron-left')
                 .removeClass('glyphicon-chevron-left')
                 .addClass('glyphicon-chevron-right');

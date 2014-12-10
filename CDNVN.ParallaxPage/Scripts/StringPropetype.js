@@ -57,3 +57,10 @@ isString = function (a) {
 isFunction = function (a) {
     return (!!a) && (a.constructor === Function);
 };
+
+//$(elm).outerHTML()
+(function ($) {
+    $.fn.outerHTML = function () {
+        return $(this).clone().wrap('<div></div>').parent().html();
+    };
+})(jQuery);

@@ -3,7 +3,6 @@
     <ul class="move">
         <li><a href="#slide-controller">Sliders</a></li>
         <li><a href="#layer-controller">Layers</a></li>
-        <li><a href="#animation-controller">Animations</a></li>
     </ul>
     <div class="ui-wrapper-tabs manager-color-content">
         <ul id="slide-controller" class="sortable"></ul>
@@ -11,12 +10,20 @@
     <div class="ui-wrapper-tabs manager-color-content">
         <ul id="layer-controller" class="sortable"></ul>
     </div>
+</div>
+<div id="parallax-controller2" class="manager-color-content tabs">
+    <ul class="move">
+        <li><a href="#animation-controller">Animations</a></li>
+    </ul>
     <div class="ui-wrapper-tabs manager-color-content">
         <ul id="animation-controller" class="sortable"></ul>
     </div>
 </div>
+
+
+
 <div class="logo">
-    <h1>CDNVN PARALLAX <span class="glyphicon glyphicon-chevron-left" style="font-size: 16px"></span></h1>
+    <h1>CDNVN PARALLAX <span class="glyphicon glyphicon-chevron-left" style="font-size: 13px"></span></h1>
 </div>
 <div id="parallax-navbar" class="navbar navbar-inverse navbar-fixed-top background-color-1 border-color-1 ">
     <div class="container">
@@ -33,45 +40,44 @@
             </li>
         </ul>
         <ul>
-            <li>
+            <li id="slide-input" class="control-input">
                 <span class="bold">Slide:</span>
                 <span>W</span>
-                <input type="number" id="slide-width" class="parallax-size" name="slide-width" style="width: 50px" placeholder="W" />
+                <input type="number" id="slide-width" class="parallax-size" name="slide-width" style="width: 45px" placeholder="W" />
                 <span>H</span>
-                <input type="number" id="slide-height" class="parallax-size" name="slide-height" style="width: 50px" placeholder="H" />
+                <input type="number" id="slide-height" class="parallax-size" name="slide-height" style="width: 45px" placeholder="H" />
             </li>
-            <li>
+            <li id="layer-input" class="control-input">
                 <span class="bold">Layer:</span>
                 <span>W</span>
-                <input type="number" id="layer-width" class="parallax-size" name="layer-width" style="width: 50px" placeholder="W" />
+                <input type="number" id="layer-width" class="parallax-size" name="layer-width" style="width: 45px" placeholder="W" />
                 <span>H</span>
-                <input type="number" id="layer-height" class="parallax-size" name="layer-height" style="width: 50px" placeholder="H" />
+                <input type="number" id="layer-height" class="parallax-size" name="layer-height" style="width: 45px" placeholder="H" />
                 <span>T</span>
-                <input type="number" id="layer-top" class="parallax-size" name="layer-top" style="width: 50px" placeholder="Top" />
+                <input type="number" id="layer-top" class="parallax-size" name="layer-top" style="width: 45px" placeholder="Top" />
                 <span>L</span>
-                <input type="number" id="layer-left" class="parallax-size" name="layer-left" style="width: 50px" placeholder="Left" />
+                <input type="number" id="layer-left" class="parallax-size" name="layer-left" style="width: 45px" placeholder="Left" />
             </li>
-            <li>
+            <li id="animatiton-input" class="control-input">
                 <span class="bold">Animation:</span>
                 <span>D</span>
-                <input type="number" id="animation-duration" class="parallax-size" name="animation-duration" style="width: 50px" placeholder="Dur" />
+                <input type="number" id="animation-duration" class="parallax-size" name="animation-duration" style="width: 45px" placeholder="Dur" />
                 <span>S</span>
-                <input type="number" id="animation-start" class="parallax-size" name="animation-start" style="width: 50px" placeholder="Top" />
+                <input type="number" id="animation-start" class="parallax-size" name="animation-start" style="width: 45px" placeholder="Top" />
                 <span>R</span>
-                <input type="number" id="animation-repeat" class="parallax-size" name="animation-repeat" style="width: 50px" placeholder="Top" />
+                <input type="number" min="-1" id="animation-repeat" class="parallax-size" name="animation-repeat" style="width: 45px" placeholder="Repeat" />
+                <span>D</span>
+                <input type="number" id="animation-delay" class="parallax-delay" name="animation-delay" style="width: 45px" placeholder="Delay" />
                 <input type="checkbox" id="animation-auto" class="parallax-checked" name="animation-auto" />
                 <span>Auto</span>
             </li>
         </ul>
-        <ul>
-            <li>
-                <a class="btn btn-save" onclick="return false;"><i class="glyphicon glyphicon-floppy-disk"></i></a>
-            </li>
-            <li>
-                <a class="btn btn-download">
-                    <i class="glyphicon glyphicon-cog"></i>
-                </a>
-            </li>
+        <ul class="system-controller">
+            <li><a class="btn btn-download" href="/PresentationManager/Index"><i class="glyphicon glyphicon-home"></i></a></li>
+            <li><a class="btn btn-save" onclick="return false;"><i class="glyphicon glyphicon-floppy-disk"></i></a></li>
+            @{ var id = Url.RequestContext.RouteData.Values["id"] ?? Request.QueryString["id"];}
+            <li><a class="btn btn-play" href="@Url.Action("Details","PresentationManager",new {id = id})" target="_blank" ><i class="glyphicon glyphicon-play"></i></a></li>
+            
         </ul>
     </div>
 </div>
@@ -83,44 +89,34 @@
     <dd class="parallax-tools-group">
         <ul id="layer-tools">
             <li>
-                <a class="btn btn-create create-layer-text" href="#" style="font-family: georgia; font-size: 18px; font-weight: 700;">
+                <a class="btn btn-create create-layer-text" class="btn btn-default" data-toggle="tooltip" data-placement="right" title="Insert Text" href="#" style="font-family: georgia; font-size: 18px; font-weight: 700;">
                     T
                 </a>
             </li>
             <li>
-                <a class="btn btn-create create-layer-image" href="#">
+                <a class="btn btn-create create-layer-image" href="#" data-toggle="tooltip" data-placement="right" title="Insert Image">
                     <i class="glyphicon glyphicon-picture"></i>
                 </a>
             </li>
             <li>
-                <a class="btn btn-create create-layer-iframe" href="#">
+                <a class="btn btn-create create-layer-iframe" href="#" data-toggle="tooltip" data-placement="right" title="Insert Iframe">
                     <i class="glyphicon glyphicon-globe"></i>
                 </a>
             </li>
 
-            <li>
-                <a class="dash">
-                </a>
+            <li class="dash">
             </li>
             <li>
-                <a class="btn btn-animation">
+                <a class="btn btn-animation" data-toggle="tooltip" data-placement="right" title="Layer Animations">
                     <i class="glyphicon glyphicon-star"></i>
                 </a>
             </li>
             <li>
-                <a class="btn btn-properties" href="#" style="font-family: georgia; font-size: 18px; font-weight: 700;">
-                    P
-                </a>
-            </li>
-            <li>
-                <a class="btn btn-showname" href="#">
+                <a class="btn btn-showname" href="#" data-toggle="tooltip" data-placement="right" title="Show/Hide Name">
                     <i class="glyphicon glyphicon-eye-open"></i>
                 </a>
             </li>
-            <li>
-                <a class="btn btn-delete" href="#">
-                    <i class="glyphicon glyphicon-trash"></i>
-                </a>
+            <li class="dash">
             </li>
         </ul>
     </dd>
@@ -128,40 +124,30 @@
     <dd class="parallax-tools-group">
         <ul id="slide-tools">
             <li>
-                <a class="btn btn-create" href="#">
+                <a class="btn btn-create" href="#" data-toggle="tooltip" data-placement="right" title="New Slide">
                     <i class="glyphicon glyphicon-plus"></i>
                 </a>
             </li>
+            <li class="dash">
+            </li>
             <li>
-                <a class="btn btn-animation">
+                <a class="btn btn-animation" data-toggle="tooltip" data-placement="right" title="Slide Animations">
                     <i class="glyphicon glyphicon-star"></i>
                 </a>
             </li>
-            <li>
-                <a class="btn btn-properties" href="#" style="font-family: georgia; font-size: 18px; font-weight: 700;">
-                    P
-                </a>
-            </li>
-            <li>
-                <a class="btn btn-delete" href="#">
-                    <i class="glyphicon glyphicon-trash"></i>
-                </a>
+            <li class="dash">
             </li>
         </ul>
     </dd>
-    <dt class=" background-color-2">Ani..<span class="glyphicon glyphicon-chevron-up"></span></dt>
+    <dt class=" background-color-2" title="Animation">Ani..<span class="glyphicon glyphicon-chevron-up"></span></dt>
     <dd class="parallax-tools-group">
         <ul id="animation-tools">
             <li>
-                <a class="btn btn-delete" href="#">
-                    <i class="glyphicon glyphicon-trash"></i>
-                </a>
-            </li>
-            <li>
-                <a class="btn btn-showname" href="#">
+                <a class="btn btn-showname" href="#" data-toggle="tooltip" data-placement="right" title="Show/Hide Animations">
                     <i class="glyphicon glyphicon-eye-open"></i>
                 </a>
             </li>
+            
         </ul>
     </dd>
 </dl>

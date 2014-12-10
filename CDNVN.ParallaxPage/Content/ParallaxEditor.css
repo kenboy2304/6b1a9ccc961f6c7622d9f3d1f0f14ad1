@@ -58,6 +58,10 @@ body > .logo {
     z-index: 2000;
 }
 
+.bold {
+    font-weight: bold;
+}
+
 input[type="text"] {
     border: #cccedb 1px solid;
 }
@@ -76,7 +80,7 @@ input[type="checkbox"] {
 
     .logo h1 {
         font-weight: bold;
-        font-size: 20px;
+        font-size: 17px;
         padding: 0;
         margin: 0 10px;
         height: 52px;
@@ -91,7 +95,7 @@ input[type="checkbox"] {
     .navbar .container {
         float: left;
         height: 48px;
-        margin-left: 205px;
+        margin-left: 170px;
         max-width: 100%;
         font-size: 11px;
     }
@@ -110,6 +114,9 @@ input[type="checkbox"] {
         .navbar .container li {
             float: left;
             padding: 12px 0 12px 6px;
+        }
+        .navbar .container li.control-input {
+            display: none;
         }
 
             .navbar .container li .bold {
@@ -136,41 +143,67 @@ input[type="checkbox"] {
                 cursor: default;
             }
 
-#parallax-controller {
+    .navbar .system-controller {
+        background: #CCCEDB;
+        position: absolute;
+        right: 0;
+    }
+
+    .navbar .system-controller {
+        background: #CCCEDB;
+        position: absolute;
+        right: 0;
+    }
+
+        .navbar .system-controller li {
+            padding: 8px 5px;
+            display: inline-block;
+        }
+
+            .navbar .system-controller li a:hover {
+                color: white;
+            }
+
+
+#parallax-controller,#parallax-controller2 {
     width: 230px;
     border-radius: 0;
     padding: 0;
     font-size: 11px;
     position: fixed;
-    top: 60px;
-    right: 25px;
+    top: 55px;
+    right: 10px;
     border-color: #CCCEDB;
 }
+#parallax-controller2 {
+    top: 400px;
+}
 
-    #parallax-controller .ui-tabs-nav {
+    #parallax-controller .ui-tabs-nav,#parallax-controller2 .ui-tabs-nav {
+        background: #CCCEDB;
         border-radius: 0;
         border: none;
         color: #cccedb;
         padding: 0;
     }
 
-    #parallax-controller .ui-state-default {
+    #parallax-controller .ui-state-default, #parallax-controller2 .ui-state-default {
         background: #404040;
         color: #fff;
         border: none;
         border-radius: 0;
     }
 
-        #parallax-controller .ui-state-default a {
+        #parallax-controller .ui-state-default a, #parallax-controller2 .ui-state-default a {
             padding: 5px 7px;
             color: white;
         }
 
-    #parallax-controller .ui-tabs-active {
+    #parallax-controller .ui-tabs-active, #parallax-controller2 .ui-tabs-active {
         background: #EEEEF2;
     }
 
-        #parallax-controller .ui-tabs-active a {
+        #parallax-controller .ui-tabs-active a,#parallax-controller2 .ui-tabs-active a {
             color: #404040;
             cursor: default;
         }
@@ -179,42 +212,78 @@ input[type="checkbox"] {
         background: #eeeef2;
     }
 
-    #parallax-controller .sortable {
+    #parallax-controller .sortable,#parallax-controller2 .sortable {
         padding: 5px 0 10px 0;
         margin: 0;
-        max-height: 400px;
+        max-height: 300px;
         overflow: auto;
     }
 
 
-        #parallax-controller .sortable .sortable-item {
+        #parallax-controller .sortable .sortable-item, #parallax-controller2 .sortable .sortable-item {
             border: 1px #CCCEDB solid;
             background: white;
             margin-top: -1px;
+            position: relative;
         }
 
-            #parallax-controller .sortable .sortable-item a {
-                padding: 5px;
-                width: 190px;
+
+
+            #parallax-controller .sortable .sortable-item a, #parallax-controller2 .sortable .sortable-item a {
+                padding: 7px 5px 2px 8px;
+                position: relative;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 display: block;
                 cursor: default;
+                display: inline-block;
+                width: 175px;
             }
 
-                #parallax-controller .sortable .sortable-item a:hover {
-                    text-decoration: none;
-                }
+            #parallax-controller .sortable .sortable-item.item-animation:after {
+                display: block;
+                position: absolute;
+                width: 20px;
+                height: 30px;
+                top: 0;
+                right: 0;
+                font-family: 'Glyphicons Halflings';
+                content: "\e006";
+                color: #E8B76A;
+                font-size: 10px;
+                line-height: 30px;
+            }
 
-                #parallax-controller .sortable .sortable-item a:before {
+            #parallax-controller .sortable .sortable-item.item-hide a {
+                text-decoration: line-through;
+                color: #cccedb;
+            }
+
+            #parallax-controller .sortable .sortable-item .showhide {
+                display: inline-block;
+                position: relative;
+                top: -8px;
+                left: 5px;
+            }
+
+            #parallax-controller .sortable .sortable-item a:hover, #parallax-controller2 .sortable .sortable-item a:hover {
+                text-decoration: none;
+            }
+
+            #parallax-controller .sortable .sortable-item.item-hide a:hover {
+                text-decoration: line-through;
+                cursor: not-allowed;
+            }
+
+        /*#parallax-controller .sortable .sortable-item a:before {
                     font-family: 'Glyphicons Halflings';
                     content: "\e072";
                     font-size: 10px;
                     padding-right: 5px;
-                }
+                }*/
 
-        #parallax-controller .sortable .active {
+        #parallax-controller .sortable .active, #parallax-controller2 .sortable .active {
             background: #cccedb;
         }
 
@@ -232,6 +301,10 @@ input[type="checkbox"] {
     border-width: 1px;
 }
 
+    #parallax-tools .btn {
+        padding: 6px !important;
+    }
+
     #parallax-tools dt {
         padding: 3px;
         position: relative;
@@ -248,7 +321,12 @@ input[type="checkbox"] {
 
     #parallax-tools dd li {
         position: relative;
+        text-align: center;
     }
+
+        #parallax-tools dd li.dash {
+            border-bottom: 1px #CCCEDB solid;
+        }
 
         #parallax-tools dd li ul {
             position: absolute;
@@ -286,7 +364,7 @@ input[type="checkbox"] {
 
     #parallax-tools .parallax-tools-group ul {
         margin: 0;
-        padding: 0 9px;
+        padding: 0;
     }
 
 #parallax-gridviews {
@@ -311,7 +389,7 @@ input[type="checkbox"] {
     box-sizing: border-box;
 }
 /*z-index*/
-#parallax-controller, #parallax-navbar, #parallax-tools {
+#parallax-controller,#parallax-controller2, #parallax-navbar, #parallax-tools {
     z-index: 1000;
 }
 
@@ -327,14 +405,19 @@ input[type="checkbox"] {
 .slide {
     border-bottom: #404040 1px dashed;
 }
+.slide.slide-hide {
+    display: none;
+}
 
 .layer {
     display: inline-block;
     position: absolute !important;
-    top: 200px;
-    left: 200px;
     z-index: 1;
 }
+
+    .layer.layer-hide {
+        display: none;
+    }
 
 .ui-rotatable-handle {
     display: none;
@@ -373,6 +456,7 @@ input[type="checkbox"] {
         background: #0a0a0a;
         color: white;
     }
+
     .layer.active .trigger {
         display: block !important;
     }
@@ -393,21 +477,30 @@ input[type="checkbox"] {
     border: 1px #000 solid;
     box-shadow: 0px 0px 5px #000;
 }
+
 .layer.hide-animation .trigger {
     visibility: hidden;
 }
+
 .layer.hide-animation:before {
     font-family: 'Glyphicons Halflings';
     content: "\e006";
-    padding:0 5px;
+    padding: 0 5px;
     font-size: 10px;
     position: absolute;
     color: #e8b76a;
     left: -18px;
 }
+
 .layer.active:before {
     display: none;
 }
+
+.trigger
+{
+	z-index: 900;
+}
+
 .layer.active .trigger {
     visibility: visible;
 }
@@ -441,7 +534,7 @@ input[type="checkbox"] {
     border-color: #D65532;
 }
 
-.trigger-active span.auto, .trigger-active span.repeat {
+.trigger-active span.auto, .trigger-active span.repeat, .trigger-active span.delay {
     font-weight: 400;
     color: white !important;
 }

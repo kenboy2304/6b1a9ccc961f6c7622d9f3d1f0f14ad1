@@ -14,9 +14,15 @@ namespace CDNVN.ParallaxPage
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                name: "Viewer",
+                url: "{keyword}",
+                defaults: new { controller = "PresentationManager", action = "Previews", keyword = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "PresetationManager", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "PresentationManager", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

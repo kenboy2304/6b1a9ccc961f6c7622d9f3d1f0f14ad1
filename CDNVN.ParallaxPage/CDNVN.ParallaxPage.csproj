@@ -175,7 +175,9 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\bg1.png" />
     <Content Include="Content\Images\default.png" />
+    <Content Include="Content\Images\error-img.png" />
     <Content Include="Content\Images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\Images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\Images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -203,6 +205,16 @@
     <Content Include="Content\Plugins\colorbox\jquery.colorbox-min.js" />
     <Content Include="Content\Plugins\Colpick\css\colpick.css" />
     <Content Include="Content\Plugins\Colpick\js\colpick.js" />
+    <Content Include="Content\Plugins\menucontent\images\cmenu-gloss-cyan-menu-item-hover.gif" />
+    <Content Include="Content\Plugins\menucontent\images\cmenu-gloss-menu-item-hover.gif" />
+    <Content Include="Content\Plugins\menucontent\images\cmenu-gloss-semitransparent-menu-item-hover.png" />
+    <Content Include="Content\Plugins\menucontent\images\cmenu-human-menu-item-hover.gif" />
+    <Content Include="Content\Plugins\menucontent\images\cmenu-osx-menu-item-hover.gif" />
+    <Content Include="Content\Plugins\menucontent\images\cmenu-vista-bg.gif" />
+    <Content Include="Content\Plugins\menucontent\images\cmenu-vista-menu-item-hover.gif" />
+    <Content Include="Content\Plugins\menucontent\images\cmenu-xp-bg.gif" />
+    <Content Include="Content\Plugins\menucontent\jquery.contextmenu.css" />
+    <Content Include="Content\Plugins\menucontent\jquery.contextmenu.js" />
     <Content Include="Content\Plugins\rotation\jquery.ui.rotatable.css" />
     <Content Include="Content\Plugins\rotation\jquery.ui.rotatable.js" />
     <Content Include="Content\Plugins\rotation\jquery.ui.rotatable.min.js" />
@@ -243,12 +255,14 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
+    <Content Include="Error404.html" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Properties\PublishProfiles\Parallax.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -261,8 +275,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\ParallaxProperties.js" />
     <Content Include="Scripts\ParallaxAnimation.js" />
+    <Content Include="Scripts\ParallaxProperties.js" />
+    <Content Include="Scripts\ParallaxAnimation_.js" />
     <Content Include="Scripts\parllaxJS_OOP.js" />
     <Content Include="Scripts\parllaxJS-tools.js" />
     <Content Include="Scripts\parllaxJS.js" />
@@ -311,6 +326,7 @@
     <Content Include="Views\Shared\_ParallaxController.cshtml" />
     <Content Include="Views\Home\ParallaxProperties.cshtml" />
     <Content Include="Views\Home\ParallaxAnimation.cshtml" />
+    <Content Include="Views\PresentationManager\Previews.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

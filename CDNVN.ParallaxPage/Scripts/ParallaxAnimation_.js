@@ -40,6 +40,9 @@ function ParallaxAnimation(parallaxScroller) {
         },
         Pulse: {
             Default: "Pulse",
+            Delay1: "Pulse Delay 1s",
+            Delay2: "Pulse Delay 2s",
+            Delay5: "Pulse Delay 5s",
         },
         Move: {
             LeftRight: "Left To Right",
@@ -55,16 +58,6 @@ function ParallaxAnimation(parallaxScroller) {
         }
     };
     this.Exit = {
-        FlyOut: {
-            Left: "Fly Out Left",
-            RotationLeft: "Fly Out Left & Rotation",
-            Right: "Fly Out Right",
-            RotationRight: "Fly Out Right & Rotation",
-            Top: "Fly Out Top",
-            RotationTop: "Fly Out Top & Rotation",
-            Bottom: "Fly Out Bottom",
-            RotationBottom: "Fly Out Bottom & Rotation",
-        },
         FadeOut: {
             Default: "Fade Out",
             Rotation: "Fade Out & Rotation"
@@ -72,25 +65,15 @@ function ParallaxAnimation(parallaxScroller) {
     };
     if (parallaxScroller != undefined)
         this.ParallaxScroller = parallaxScroller;
-    this.StringFormat = "<div class='trigger {2}' data-animation='{0}' data-auto='{4}' data-repeat='{5}' data-delay='{6}' data-trigger-name='{1}' style='{3}' >" +
-                        "<span>Start {1}</span> " +
-                        "<span class='auto'>Auto: <span>{4}</span></span>" +
-                        "<span class='repeat'>Repeat: <span>{5}</span></span>" +
-                        "<span class='delay'>Delay: <span>{6}</span></span>" +
-                        "<span>End {1}</span></div>";
-    this.ControllerFormat = '<li class="sortable-item"><a data-element="{0}" >{1}</a></li>' ;
+    this.StringFormat = "<div class='trigger {2}' data-animation='{0}' data-auto='{4}' data-repeat='{5}' data-trigger-name='{1}' style='{3}' ><span>Start {1}</span> <span class='auto'>Auto: <span>{4}</span></span><span class='repeat'>Repeat: <span>{5}</span></span><span>End {1}</span></div>";
 }
 
-
-//SET GET URL POPUP ANIMATIONS
 ParallaxAnimation.prototype.SetUrl = function (url) {
     this.PopupUrl = url;
 };
 ParallaxAnimation.prototype.GetUrl = function (url) {
     return this.PopupUrl;
 };
-
-//OPEN POPUP ANIMATIONS
 ParallaxAnimation.prototype.Open = function (elm) {
     if ($(elm).attr("id") == undefined) {
         alert("Vui lòng tạo/chọn slide hoặc layer");
@@ -103,22 +86,6 @@ ParallaxAnimation.prototype.Open = function (elm) {
     var animationWindow = window.open(this.PopupUrl + "?element=" + elm, "Parallax Animation", "top=" + top + ", left=" + left + ", width=" + width + ", height=" + height + "'location=no,toolbar=no,menubar=no,resizable=no");
     return false;
 };
-
-
-//SET CONTROLLER MANGAGER
-ParallaxAnimation.prototype.SetAnimationController = function(elmId) {
-    elmId = elmId.JqueryId();
-    var a = this;
-    $("#animation-controller").empty();
-    if ($(elmId + " > .trigger").length) $("#parallax-controller2").show(); else $("#parallax-controller2").hide();
-    $(elmId + " > .trigger").each(function(index) {
-        var name = $(this).data("animation");
-        var item = String.format(a.ControllerFormat, elmId, name);
-        $("#animation-controller").append(item);
-    });
-};
-
-//SET ANIMATIONs FOR SLIDE/LAYER
 ParallaxAnimation.prototype.Set = function (elm, animation) {
     var stringFormat = this.StringFormat;
     var str0 = animation.value;
@@ -127,10 +94,10 @@ ParallaxAnimation.prototype.Set = function (elm, animation) {
     var style = animation.style;
     var str4 = animation.auto == undefined ? false : animation.auto;
     var str5 = animation.repeat == undefined ? 0 : animation.repeat;
-    var str6 = animation.delay == undefined ? 0 : animation.delay;
     var type = "";
     type = (elm.indexOf("layer") >= 0) ? "layer" : type;
     type = (elm.indexOf("slide") >= 0) ? "slide" : type;
+
     if (style == undefined) {
         style = (elm.indexOf("layer") >= 0) ? 'left:-150px;' : style;
         style = (elm.indexOf("slide") >= 0) ? 'right:0; height:50%;' : style;
@@ -140,8 +107,7 @@ ParallaxAnimation.prototype.Set = function (elm, animation) {
                 style = styleCheck;
                 str4 = $(elm).find('.' + str2).data("auto");
                 str5 = $(elm).find('.' + str2).data("repeat");
-                $(elm+' > .' + str2).remove();
-                
+                $(elm).find('.' + str2).remove();
             } else {
                 var $last = $(elm).find(".trigger-" + type + ":last-of-type");
                 style = "top:" + parseInt($last.height() + $last.position().top + 1) + "px; " + style;
@@ -150,20 +116,10 @@ ParallaxAnimation.prototype.Set = function (elm, animation) {
     }
     str2 += " trigger-" + type;
 
-    $(elm).append(String.format(stringFormat, str0, str1, str2, style, str4, str5, str6));
-    $("#animation-controller").append(String.format(this.ControllerFormat, elm.JqueryId(), str0));
-    var elmId = "#" + $(elm).attr("id");
-    if ($(elmId).hasClass("layer")) {
-        $("[data-layer='" + elmId + "']").parent().addClass("item-animation");
-    }
-    if ($(elmId).hasClass("slide")) {
-        $("[data-slide='" + elmId + "']").parent().addClass("item-animation");
-    }
+    $(elm).append(String.format(stringFormat, str0, str1, str2, style, str4, str5));
     $(elm).find('.trigger').resizable({ handles: "n,s" }).draggable({ axis: "y", cursor: "move" });
     return false;
 };
-
-//GET ANIMATIONS OF SLIDE//LAYER
 ParallaxAnimation.prototype.Get = function (elm) {
     elm = elm.JqueryId();
     var type = "";
@@ -179,26 +135,17 @@ ParallaxAnimation.prototype.Get = function (elm) {
             duration: $(this).outerHeight(),
             start: $(this).position().top,
             repeat: $(this).data("repeat"),
-            auto: $(this).data("auto"),
-            delay: $(this).data("delay")
+            auto: $(this).data("auto")
         };
-
         animations[animations.length] = a;
     });
     return animations;
 };
-
-//ANIMATION CONTROL
-ParallaxAnimation.prototype.Buttons = function (elmHeight, elmTop, elmRepeat, elmAuto, elmDelay) {
+ParallaxAnimation.prototype.Buttons = function (elmHeight, elmTop, elmRepeat, elmAuto, elmDelete) {
     var p = this.ParallaxScroller;
 
     $(elmHeight + ", " + elmTop).on("change keyup", function () {
-        var css = { height: $(elmHeight).val() };
-        if (p.GetActiveLayerId()) {
-            css.top = parseInt($(elmTop).val()) - $(p.GetActiveLayer()).position().top;
-        } else {
-            css.top = parseInt($(elmTop).val());
-        }
+        var css = { height: $(elmHeight).val(), top: $(elmTop).val() };
         $(".trigger-active").stop().animate(css, 500);
     });
 
@@ -212,136 +159,89 @@ ParallaxAnimation.prototype.Buttons = function (elmHeight, elmTop, elmRepeat, el
         }
         $('.trigger.trigger-active').removeClass('trigger-active');
         $(this).addClass('trigger-active');
-        var nameTrigger = $(this).data("animation");
-
-        $("#animation-controller .sortable-item.active").removeClass("active");
-        $("#animation-controller").find("[data-element='" + parent + "']").each(function() {
-            if ($(this).text() == nameTrigger) {
-                $(this).parent().addClass("active");
-            }
-        });
-
-        setValueController(this);
-        $('.control-input').hide();
-        $('#animatiton-input').show();
-        if ($(parent).hasClass("slide")) $('#slide-input').show();
-        if ($(parent).hasClass("layer")) $('#layer-input').show();
-        $('.context-menu-shadow').prev().hide();
-        $('.context-menu-shadow').hide();
+        $(elmHeight).val($(this).outerHeight());
+        $(elmTop).val($(this).position().top);
+        $(elmRepeat).val($(this).data("repeat"));
+        $(elmAuto).prop("checked", $(this).data("auto"));
         event.stopPropagation();
-    });
-
-    $('#animation-controller').delegate(' .sortable-item a', "click", function() {
-        $("#animation-controller").find(".sortable-item").removeClass("active");
-        $(this).parent().addClass("active");
-        var elm = $(this).data("element");
-
-        $('.trigger.trigger-active').removeClass('trigger-active');
-        var triggerName = $(this).text();
-        $(elm + " > .trigger").each(function () {
-            if ($(this).data("animation") == triggerName) {
-                $(this).addClass('trigger-active');
-                setValueController(this);
-            }
-        });
-        $('.control-input').hide();
-        $('#animatiton-input').show();
-        if ($(elm).hasClass("slide")) $('#slide-input').show();
-        if ($(elm).hasClass("layer")) $('#layer-input').show();
-
-
     });
 
     $(elmRepeat).on("change keyup", function () {
         $('.trigger.trigger-active').data("repeat", $(this).val().toString());
         $('.trigger.trigger-active').find('.repeat > span').text($(this).val());
     });
-    $(elmDelay).on("change keyup", function () {
-        $('.trigger.trigger-active').data("delay", $(this).val().toString());
-        $('.trigger.trigger-active').find('.delay > span').text($(this).val());
-    });
     $(elmAuto).on("change", function () {
         $('.trigger.trigger-active').data("auto", $(this).is(":checked"));
         $('.trigger.trigger-active').find('.auto > span').text($(this).is(":checked"));
     });
 
-    function setValueController(elmAnimation) {
-        $(elmHeight).val($(elmAnimation).outerHeight());
-        if ($(elmAnimation).parent().hasClass("layer")) {
-            $(elmTop).val($(elmAnimation).position().top + $(elmAnimation).parent().position().top);
-        } else if ($(elmAnimation).parent().hasClass("slide")) {
-            $(elmTop).val($(elmAnimation).position().top);
+    $(elmDelete).on("click", function () {
+        var del = confirm("Bạn chắc chắn muốn xóa animation?");
+        if (del) {
+            $('.trigger-active').remove();
         }
-        $(elmRepeat).val($(elmAnimation).data("repeat"));
-        $(elmDelay).val($(elmAnimation).data("delay"));
-        $(elmAuto).prop("checked", $(elmAnimation).data("auto"));
-    }
+        return false;
+    });
 };
 
-
-//SETUP SCROLL MAGIC
 ParallaxAnimation.prototype.InitScroll = function () {
     this.Controller = new ScrollMagic();
 };
 
-//RUN ANIMATION
-ParallaxAnimation.prototype.Animation = function (animationElement, animation, duration, start, repeat, auto, delay) {
-    duration = duration == undefined ? ($(window).height() / 2) : duration;
-    var triggerElement = createTrigger(animationElement, animation, duration, start, auto);
-    if (!auto || animation == "Pin") duration = $(triggerElement).height();
+
+ParallaxAnimation.prototype.Animation = function (animationElement, animation, duration, start, repeat, auto) {
+    if (duration == undefined) duration = $(window).height() / 2;
+    var triggerElement = createTrigger(animationElement, animation, duration, start);
     var slideId = getSlideId(animationElement);
     var triggerHook = "onEnter";
     var top = $(animationElement).offset().top - $(slideId).offset().top;
 
     if (animation == this.Emphasis.Parallax.Pin) {
-        triggerHook = "onLeave";
+        var triggerHook = "onLeave";
         return new ScrollScene({ triggerElement: triggerElement, duration: duration, offset: 0 })
         .setPin(animationElement)
         .triggerHook(triggerHook)
         .addTo(this.Controller);
     }
 
-
+    repeat = (repeat == undefined || !auto) ? 0 : repeat;
     auto = auto == undefined ? false : auto;
 
     duration = auto ? (duration / 100).toFixed(1) : duration;
 
-    delay = delay == undefined ? 0 : delay;
-    repeat = (repeat == undefined || !auto) ? 0 : repeat;
-    var repeatDelay = { repeat: repeat, delay: delay };
 
     var tween = false;
     var ease = Linear.easeNone;
     var offset = 0;
     //var top = $(animationElement).parent().hasClass("scrollmagic-pin-spacer") ? $(animationElement).parent().position().top : $(animationElement).position().top;
-
+   
     switch (animation) {
         /******************************FLY In DEFAULT ****************************/
         case this.Entrance.FlyIn.Left:
             {
-                tween = new TimelineMax(repeatDelay)
+                tween = new TimelineMax({ repeat: repeat })
                     .from(animationElement, 0.1, { opacity: 0 })
                     .from(animationElement, duration, { left: 0 - $(animationElement).width(), ease: ease });
                 break;
             }
         case this.Entrance.FlyIn.Right:
             {
-                tween = new TimelineMax(repeatDelay)
+                tween = new TimelineMax({ repeat: repeat })
                     .from(animationElement, 0.1, { opacity: 0 })
-                    .from(animationElement, duration, { left: $(slideId).width() + $(animationElement).width(), ease: ease });
+                    .from(animationElement, duration, { left: $(triggerElement).width() + $(animationElement).width(), ease: ease });
 
                 break;
             }
         case this.Entrance.FlyIn.Top:
             {
-                tween = new TimelineMax(repeatDelay)
+                tween = new TimelineMax({ repeat: repeat })
                     .from(animationElement, 0.1, { opacity: 0 })
                     .from(animationElement, duration, { top: 0 - $(animationElement).height(), ease: ease });
                 break;
             }
         case this.Entrance.FlyIn.Bottom:
             {
-                tween = new TimelineMax(repeatDelay)
+                tween = new TimelineMax({ repeat: repeat })
                     .from(animationElement, 0.1, { opacity: 0 })
                     .from(animationElement, duration, { top: $(slideId).height(), ease: ease });
                 break;
@@ -349,28 +249,28 @@ ParallaxAnimation.prototype.Animation = function (animationElement, animation, d
             /******************************FLY In Rotation ****************************/
         case this.Entrance.FlyIn.RotationLeft:
             {
-                tween = new TimelineMax(repeatDelay)
+                tween = new TimelineMax({ repeat: repeat })
                     .from(animationElement, 0.1, { opacity: 0 })
                     .from(animationElement, duration, { left: 0 - $(animationElement).width(), rotation: 180, ease: ease });
                 break;
             }
         case this.Entrance.FlyIn.RotationRight:
             {
-                tween = new TimelineMax(repeatDelay)
+                tween = new TimelineMax({ repeat: repeat })
                     .from(animationElement, 0.1, { opacity: 0 })
-                    .from(animationElement, duration, { left: $(slideId).width() + $(animationElement).width(), rotation: 180, ease: ease });
+                    .from(animationElement, duration, { left: $(triggerElement).width() + $(animationElement).width(), rotation: 180, ease: ease });
                 break;
             }
         case this.Entrance.FlyIn.RotationTop:
             {
-                tween = new TimelineMax(repeatDelay)
+                tween = new TimelineMax({ repeat: repeat })
                     .from(animationElement, 0.1, { opacity: 0 })
                     .from(animationElement, duration, { top: 0 - $(animationElement).height(), rotation: 180, ease: ease });
                 break;
             }
         case this.Entrance.FlyIn.RotationBottom:
             {
-                tween = new TimelineMax(repeatDelay)
+                tween = new TimelineMax({ repeat: repeat })
                     .from(animationElement, 0.1, { opacity: 0 })
                     .from(animationElement, duration, { top: $(triggerElement).height() + $(animationElement).height(), rotation: 180, ease: ease });
                 break;
@@ -379,44 +279,46 @@ ParallaxAnimation.prototype.Animation = function (animationElement, animation, d
             /******************************FLOAT In ****************************/
         case this.Entrance.FloatIn.Left:
             {
-                tween = TweenMax.from(animationElement, duration, { left: $(animationElement).offset().left - 50, "opacity": 0, repeat: repeat, delay: delay, ease: ease });
+                tween = TweenMax.from(animationElement, duration, { left: $(animationElement).offset().left - 50, "opacity": 0, repeat: repeat, ease: ease });
                 break;
             }
         case this.Entrance.FloatIn.Right:
             {
-                tween = TweenMax.from(animationElement, duration, { left: $(animationElement).offset().left + 50, "opacity": 0, repeat: repeat, delay: delay, ease: ease });
+                tween = TweenMax.from(animationElement, duration, { left: $(animationElement).offset().left + 50, "opacity": 0, repeat: repeat, ease: ease });
                 break;
             }
         case this.Entrance.FloatIn.Top:
             {
-                tween = TweenMax.from(animationElement, duration, { top: top - 50, "opacity": 0, repeat: repeat, delay: delay, ease: ease });
+                top = $(animationElement).position().top == top ? top : $(animationElement).position().top;
+                top -= 300;
+                tween = TweenMax.from(animationElement, duration, { top: top, "opacity": 0, repeat: repeat, ease: ease });
                 break;
             }
         case this.Entrance.FloatIn.Bottom:
             {
-                tween = TweenMax.from(animationElement, duration, { top: top + 50, "opacity": 0, repeat: repeat, delay: delay, ease: ease });
+                tween = TweenMax.from(animationElement, duration, { top: top + 50 + $(triggerElement).offset().top, "opacity": 0, repeat: repeat, ease: ease });
                 break;
             }
             /******************************ZOOM In ****************************/
         case this.Entrance.ZoomIn.Default:
             {
-                tween = TweenMax.from(animationElement, duration, { scale: 0, "opacity": 0, repeat: repeat, delay: delay, ease: ease });
+                tween = TweenMax.from(animationElement, duration, { scale: 0, "opacity": 0, repeat: repeat, ease: ease });
                 break;
             }
         case this.Entrance.ZoomIn.Rotation:
             {
-                tween = TweenMax.from(animationElement, duration, { rotation: 360, scale: 0, "opacity": 0, repeat: repeat, delay: delay, ease: ease });
+                tween = TweenMax.from(animationElement, duration, { rotation: 360, scale: 0, "opacity": 0, repeat: repeat, ease: ease });
                 break;
             }
             /******************************FADE In ****************************/
         case this.Entrance.FadeIn.Default:
             {
-                tween = TweenMax.from(animationElement, duration, { "opacity": 0, repeat: repeat, delay: delay, ease: ease });
+                tween = TweenMax.from(animationElement, duration, { "opacity": 0, repeat: repeat, ease: ease });
                 break;
             }
         case this.Entrance.FadeIn.Rotation:
             {
-                tween = TweenMax.from(animationElement, duration, { rotation: 360, "opacity": 0, repeat: repeat, delay: delay, ease: ease });
+                tween = TweenMax.from(animationElement, duration, { rotation: 360, "opacity": 0, repeat: repeat, ease: ease });
                 break;
             }
     }
@@ -451,13 +353,28 @@ ParallaxAnimation.prototype.Animation = function (animationElement, animation, d
             }
         case this.Emphasis.Spin.Default:
             {
-                tween = TweenMax.to(animationElement, duration, { rotation: 360, repeat: repeat, delay: delay, ease: ease });
+                tween = TweenMax.to(animationElement, duration, { rotation: 360, repeat: repeat, ease: ease });
                 break;
             }
             /******************************Pulse ****************************/
         case this.Emphasis.Pulse.Default:
             {
-                tween = TweenMax.to(animationElement, duration, { opacity: 0.3, yoyo: true, repeat: repeat, delay: delay, ease: ease });
+                tween = TweenMax.to(animationElement, duration, { opacity: 0.3, yoyo: true, repeat: repeat, ease: ease });
+                break;
+            }
+        case this.Emphasis.Pulse.Delay1:
+            {
+                tween = TweenMax.to(animationElement, duration, { opacity: 0.3, yoyo: true, repeat: repeat, repeatDelay: 10, ease: ease });
+                break;
+            }
+        case this.Emphasis.Pulse.Delay2:
+            {
+                tween = TweenMax.to(animationElement, duration, { opacity: 0.3, yoyo: true, repeat: repeat, delay: 2, repeatDelay: 2, ease: ease });
+                break;
+            }
+        case this.Emphasis.Pulse.Delay5:
+            {
+                tween = TweenMax.to(animationElement, duration, { opacity: 0.3, yoyo: true, repeat: repeat, delay: 5, repeatDelay: 5, ease: ease });
                 break;
             }
             /******************************move  ****************************/
@@ -465,21 +382,22 @@ ParallaxAnimation.prototype.Animation = function (animationElement, animation, d
             {
                 var from = 0 - $(animationElement).width();
                 var to = $(slideId).width() + $(animationElement).width();
-                tween = TweenMax.fromTo(animationElement, duration, { left: from }, { left: to, repeat: repeat, delay: delay, ease: ease });
+                tween = TweenMax.fromTo(animationElement, duration, { left: from }, { left: to, repeat: repeat, ease: ease });
                 break;
             }
         case this.Emphasis.Move.RightLeft:
             {
                 var to = 0 - $(animationElement).width();
                 var from = $(slideId).width() + $(animationElement).width();
-                tween = TweenMax.fromTo(animationElement, duration, { left: from }, { left: to, repeat: repeat, delay: delay, ease: ease });
+                tween = TweenMax.fromTo(animationElement, duration, { left: from }, { left: to, repeat: repeat, ease: ease });
                 break;
             }
         case this.Emphasis.Move.TopBottom:
             {
+                alert($(slideId).height());
                 var to = $(slideId).height();
                 var from = 0 - $(animationElement).height();
-                tween = new TimelineMax(repeatDelay)
+                tween = new TimelineMax({ repeat: repeat })
                     .from(animationElement, 0.1, { opacity: 0, ease: ease })
                     .fromTo(animationElement, duration, { top: from }, { top: to, ease: ease })
                     .to(animationElement, 0.1, { opacity: 0, ease: ease });
@@ -490,7 +408,7 @@ ParallaxAnimation.prototype.Animation = function (animationElement, animation, d
 
                 var from = $(slideId).height() + $(animationElement).height();
                 var to = 0 - $(animationElement).height();
-                tween = new TimelineMax(repeatDelay)
+                tween = new TimelineMax({ repeat: repeat })
                     .from(animationElement, 0.1, { opacity: 0, ease: ease })
                     .fromTo(animationElement, duration, { top: from }, { top: to, ease: ease })
                     .to(animationElement, 0.1, { opacity: 0, ease: ease });
@@ -498,7 +416,7 @@ ParallaxAnimation.prototype.Animation = function (animationElement, animation, d
             }
         case this.Emphasis.Move.LeftRight100:
             {
-                tween = new TimelineMax(repeatDelay)
+                tween = new TimelineMax({ repeat: repeat })
                     .to(animationElement, duration / 2, { left: $(animationElement).position().left - 100, ease: ease })
                     .to(animationElement, duration, { left: $(animationElement).position().left + 100, ease: ease })
                     .to(animationElement, duration / 2, { left: $(animationElement).position().left, ease: ease });
@@ -506,7 +424,7 @@ ParallaxAnimation.prototype.Animation = function (animationElement, animation, d
             }
         case this.Emphasis.Move.LeftRight200:
             {
-                tween = new TimelineMax(repeatDelay)
+                tween = new TimelineMax({ repeat: repeat })
                     .to(animationElement, duration / 2, { left: $(animationElement).position().left - 200, ease: ease })
                     .to(animationElement, duration, { left: $(animationElement).position().left + 200, ease: ease })
                     .to(animationElement, duration / 2, { left: $(animationElement).position().left, ease: ease });
@@ -514,7 +432,7 @@ ParallaxAnimation.prototype.Animation = function (animationElement, animation, d
             }
         case this.Emphasis.Move.LeftRight500:
             {
-                tween = new TimelineMax(repeatDelay)
+                tween = new TimelineMax({ repeat: repeat })
                     .to(animationElement, duration / 2, { left: $(animationElement).position().left - 500, ease: ease })
                     .to(animationElement, duration, { left: $(animationElement).position().left + 500, ease: ease })
                     .to(animationElement, duration / 2, { left: $(animationElement).position().left, ease: ease });
@@ -522,7 +440,7 @@ ParallaxAnimation.prototype.Animation = function (animationElement, animation, d
             }
         case this.Emphasis.Move.RightLeft100:
             {
-                tween = new TimelineMax(repeatDelay)
+                tween = new TimelineMax({ repeat: repeat })
                     .to(animationElement, duration / 2, { left: $(animationElement).position().left + 100, ease: ease })
                     .to(animationElement, duration, { left: $(animationElement).position().left - 100, ease: ease })
                     .to(animationElement, duration / 2, { left: $(animationElement).position().left, ease: ease });
@@ -530,7 +448,7 @@ ParallaxAnimation.prototype.Animation = function (animationElement, animation, d
             }
         case this.Emphasis.Move.RightLeft200:
             {
-                tween = new TimelineMax(repeatDelay)
+                tween = new TimelineMax({ repeat: repeat })
                     .to(animationElement, duration / 2, { left: $(animationElement).position().left + 200, ease: ease })
                     .to(animationElement, duration, { left: $(animationElement).position().left - 200, ease: ease })
                     .to(animationElement, duration / 2, { left: $(animationElement).position().left, ease: ease });
@@ -538,7 +456,7 @@ ParallaxAnimation.prototype.Animation = function (animationElement, animation, d
             }
         case this.Emphasis.Move.RightLeft500:
             {
-                tween = new TimelineMax(repeatDelay)
+                tween = new TimelineMax({ repeat: repeat })
                     .to(animationElement, duration / 2, { left: $(animationElement).position().left + 500, ease: ease })
                     .to(animationElement, duration, { left: $(animationElement).position().left - 500, ease: ease })
                     .to(animationElement, duration / 2, { left: $(animationElement).position().left, ease: ease });
@@ -549,77 +467,15 @@ ParallaxAnimation.prototype.Animation = function (animationElement, animation, d
 
     /***************ANIMATION EXIT*************************/
     switch (animation) {
-
-        /******************************FLY OUT ****************************/
-        case this.Exit.FlyOut.Left:
-            {
-                tween = new TimelineMax(repeatDelay)
-                    .to(animationElement, duration, { left: 0 - $(animationElement).width(), ease: ease })
-                    .to(animationElement, 0.1, { opacity: 0 });
-                break;
-            }
-        case this.Exit.FlyOut.Right:
-            {
-                tween = new TimelineMax(repeatDelay)
-                    .to(animationElement, duration, { left: $(slideId).width() + $(animationElement).width(), ease: ease })
-                    .to(animationElement, 0.1, { opacity: 0 });
-
-                break;
-            }
-        case this.Exit.FlyOut.Top:
-            {
-                tween = new TimelineMax(repeatDelay)
-                    .to(animationElement, duration, { top: 0 - $(animationElement).height(), ease: ease })
-                    .to(animationElement, 0.1, { opacity: 0 });
-                break;
-            }
-        case this.Exit.FlyOut.Bottom:
-            {
-                tween = new TimelineMax(repeatDelay)
-                    .to(animationElement, duration, { top: $(slideId).height(), ease: ease })
-                    .to(animationElement, 0.1, { opacity: 0 });
-                break;
-            }
-            /******************************FLY OUR & ROTATION****************************/
-        case this.Exit.FlyOut.RotationLeft:
-            {
-                tween = new TimelineMax(repeatDelay)
-                    .to(animationElement, duration, { left: 0 - $(animationElement).width(), rotation: 180, ease: ease })
-                    .to(animationElement, 0.1, { opacity: 0 });
-                break;
-            }
-        case this.Exit.FlyOut.RotationRight:
-            {
-                tween = new TimelineMax(repeatDelay)
-                    .to(animationElement, duration, { left: $(slideId).width() + $(animationElement).width(), rotation: 180, ease: ease })
-                    .to(animationElement, 0.1, { opacity: 0 });
-                break;
-            }
-        case this.Exit.FlyOut.RotationTop:
-            {
-                tween = new TimelineMax(repeatDelay)
-                    .to(animationElement, duration, { top: 0 - $(animationElement).height(), rotation: 180, ease: ease })
-                    .to(animationElement, 0.1, { opacity: 0 });
-                break;
-            }
-        case this.Exit.FlyOut.RotationBottom:
-            {
-                tween = new TimelineMax(repeatDelay)
-                    .to(animationElement, duration, { top: $(triggerElement).height() + $(animationElement).height(), rotation: 180, ease: ease })
-                    .to(animationElement, 0.1, { opacity: 0 });
-                break;
-            }
-
-
         case this.Exit.FadeOut.Default:
             {
 
-                tween = TweenMax.to(animationElement, duration, { "opacity": 0, repeat: repeat, delay: delay, ease: ease });
+                tween = TweenMax.to(animationElement, duration, { "opacity": 0, repeat: repeat, ease: ease });
                 break;
             }
         case this.Exit.FadeOut.Rotation:
             {
-                tween = TweenMax.to(animationElement, duration, { rotation: 360, "opacity": 0, repeat: repeat, delay: delay, ease: ease });
+                tween = TweenMax.to(animationElement, duration, { rotation: 360, "opacity": 0, repeat: repeat, ease: ease });
                 break;
             }
     }
@@ -635,9 +491,41 @@ ParallaxAnimation.prototype.Animation = function (animationElement, animation, d
                              .addTo(this.Controller);
     return scene;
 };
+ParallaxAnimation.prototype.Pin = function (animationElement, offset, heightPin) {
+    //var tween;
+    //if (heightPin == undefined) heightPin = 100;
+    //if (offset == undefined) offset = 0;
+
+    //var ease = Linear.easeNone;
+    //var duration = heightPin;
+    //var triggerHook = "onLeave";
+    //var top = $(animationElement).position().top;
+    //offset = -top;
+    //return new ScrollScene({ triggerElement: animationElement, duration: duration, offset: offset })
+    //    .setPin(animationElement)
+    //    .triggerHook(triggerHook)
+    //    .addTo(this.Controller);
+};
+ParallaxAnimation.prototype.Parallax = function (slideElement, panorama) {
+    var triggerHook = "onEnter";
+    var ease = Linear.easeNone;
+    var duration = $(slideElement).height() * 2;
+    var offset = 0;
+    if (panorama) {
+        ease = Circ.easeInOut;
+        triggerHook = "onLeave";
+        duration = $(slideElement).height() - $(window).height();
+    }
+    var tween = TweenMax.to(slideElement, 5, { backgroundPosition: "0% 100%", ease: ease });
+
+    return new ScrollScene({ triggerElement: slideElement, duration: duration, offset: offset })
+                     .setTween(tween)
+                     .triggerHook(triggerHook)
+                     .addTo(this.Controller);
+};
 
 
-//FUNCITON GET SLIDE ID
+
 function getSlideId(elm) {
     var $slide = $(elm);
     while (!$slide.hasClass('slide')) {
@@ -646,37 +534,28 @@ function getSlideId(elm) {
     return '#' + $slide.attr("id");
 }
 
-//FUNCTION CREATE TRIGGER FOR DETAIL PAGE
 function createTrigger(elm, animation, duration, start) {
     if (start == undefined) start = 0;
     //name trigger
     var name = $(elm).attr("id") + animation;
-    name = name.replace(/\s/g, '').replace(/[^a-zA-Z0-9]/g, '');
+    name = name.replace(/\s/g, '').replace(/[^a-zA-Z0-9]/g, '');;
+
     //position trigger
     var css = {
         width: $(elm).width(),
-        height: duration * zoomPercent(),
-        top: ($(elm).offset().top + start * zoomPercent()),
-        left: ($(elm).offset().left),
+        height: duration,
+        top: $(elm).position().top + start,
+        left: $(elm).position().left,
     };
     if ($(elm).parent().hasClass("scrollmagic-pin-spacer")) {
         css.top += $(elm).parent().position().top;
     }
-    if (!$('#trigger-container').length) {
-        $('body').prepend("<div id='trigger-container'></div>");
-    }
-    var html = "<div class='trigger " + name + "' data-element='" + elm + "'>" + name + "</div>";
-    $("#trigger-container").append(html);
 
-    //$(slide).prepend(html);
+    // alert(name);
+    var slide = getSlideId(elm);
+    var html = "<div class='trigger " + name + "'></div>";
+    $(slide).prepend(html);
     $('.' + name).css(css);
 
     return "." + name;
-}
-
-//FUNCTION CREATE TRIGGER FOR DETAIL PAGE
-function zoomPercent(w) {
-    w = w == undefined ? 1349 : w;
-    var zoom = ($(window).width() / w).toFixed(10);
-    return zoom;
 }
